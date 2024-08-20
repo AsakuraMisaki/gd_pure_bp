@@ -1,0 +1,89 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="Theme" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_right = 201.0
+margin_bottom = 134.0
+theme = SubResource( 1 )
+
+[node name="VFlowContainer" type="VFlowContainer" parent="ScrollContainer"]
+margin_right = 354.0
+margin_bottom = 44.0
+
+[node name="GraphNode" type="GraphNode" parent="ScrollContainer/VFlowContainer"]
+margin_right = 71.0
+margin_bottom = 44.0
+title = "return"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+
+[node name="Label" type="Label" parent="ScrollContainer/VFlowContainer/GraphNode"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 55.0
+margin_bottom = 38.0
+text = "value"
+
+[node name="GraphNode3" type="GraphNode" parent="ScrollContainer/VFlowContainer"]
+margin_left = 75.0
+margin_right = 181.0
+margin_bottom = 44.0
+title = "else if"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+
+[node name="Label" type="Label" parent="ScrollContainer/VFlowContainer/GraphNode3"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 90.0
+margin_bottom = 38.0
+text = "b_condition"
+
+[node name="GraphNode2" type="GraphNode" parent="ScrollContainer/VFlowContainer"]
+margin_left = 185.0
+margin_right = 291.0
+margin_bottom = 44.0
+title = "if"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+
+[node name="Label" type="Label" parent="ScrollContainer/VFlowContainer/GraphNode2"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 90.0
+margin_bottom = 38.0
+text = "b_condition"
+
+[node name="GraphNode4" type="GraphNode" parent="ScrollContainer/VFlowContainer"]
+margin_left = 295.0
+margin_right = 354.0
+margin_bottom = 44.0
+title = "else"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+
+[node name="Label" type="Label" parent="ScrollContainer/VFlowContainer/GraphNode4"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 43.0
+margin_bottom = 38.0
+text = "{...}"

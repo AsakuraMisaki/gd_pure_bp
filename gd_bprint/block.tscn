@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://editor.gd" type="Script" id=1]
+[ext_resource path="res://nodetest.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1042.0
+margin_bottom = 602.0
+right_disconnects = true
+snap_distance = 5
+show_zoom_label = true
+script = ExtResource( 1 )
+nodeSource = ExtResource( 2 )
+
+[node name="TextEdit" type="TextEdit" parent="."]
+margin_left = 787.0
+margin_top = 5.0
+margin_right = 1024.0
+margin_bottom = 421.0
+
+[node name="Label" type="Label" parent="TextEdit"]
+margin_left = 100.0
+margin_top = 394.0
+margin_right = 223.0
+margin_bottom = 408.0
+text = "//context:javascript"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 309.0
+margin_top = 15.0
+margin_right = 361.0
+margin_bottom = 35.0
+text = "Export"
