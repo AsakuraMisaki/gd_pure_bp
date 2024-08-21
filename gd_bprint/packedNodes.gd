@@ -30,3 +30,13 @@ func _ready():
 
 func _on_Nodes_copy_nodes_request():
 	pass # Replace with function body.
+
+
+func _on_Nodes_node_unselected(node:Node):
+	selects.erase(node)
+	pass # Replace with function body.
+
+
+func _on_Nodes_node_selected(node:Node):
+	selects.append(node)
+	pass # Replace with function body.
