@@ -9,10 +9,10 @@ margin_bottom = 83.0
 title = "return"
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
-slot/0/right_enabled = false
+slot/0/left_color = Color( 0.278431, 0.882353, 0.290196, 1 )
+slot/0/right_enabled = true
 slot/0/right_type = 0
-slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/0/right_color = Color( 0.14902, 0.701961, 0.741176, 1 )
 
 [node name="Label" type="Label" parent="GraphNode"]
 margin_left = 16.0

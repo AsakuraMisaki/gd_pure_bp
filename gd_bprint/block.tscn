@@ -1,37 +1,54 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://editor.gd" type="Script" id=1]
-[ext_resource path="res://nodetest.tscn" type="PackedScene" id=2]
+[ext_resource path="res://buildContext.gd" type="Script" id=3]
+[ext_resource path="res://packedNodes.gd" type="Script" id=4]
+[ext_resource path="res://node.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="GraphEdit" type="GraphEdit" parent="."]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 1042.0
-margin_bottom = 602.0
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_right = 1027.0
+margin_bottom = 599.0
+tab_align = 0
+
+[node name="GraphEdit" type="GraphEdit" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 right_disconnects = true
+scroll_offset = Vector2( -4, -24 )
 snap_distance = 5
 show_zoom_label = true
 script = ExtResource( 1 )
-nodeSource = ExtResource( 2 )
+res_builder = ExtResource( 3 )
 
-[node name="TextEdit" type="TextEdit" parent="."]
-margin_left = 787.0
-margin_top = 5.0
-margin_right = 1024.0
-margin_bottom = 421.0
+[node name="Nodes" type="GraphEdit" parent="TabContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+res_node = ExtResource( 5 )
 
-[node name="Label" type="Label" parent="TextEdit"]
-margin_left = 100.0
-margin_top = 394.0
-margin_right = 223.0
-margin_bottom = 408.0
-text = "//context:javascript"
+[node name="Code" type="TextEdit" parent="TabContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
 
-[node name="Button" type="Button" parent="."]
-margin_left = 309.0
-margin_top = 15.0
-margin_right = 361.0
-margin_bottom = 35.0
-text = "Export"
+[node name="debug" type="RichTextLabel" parent="TabContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="env" type="RichTextLabel" parent="TabContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[connection signal="connection_request" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
+[connection signal="copy_nodes_request" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_copy_nodes_request"]
+[connection signal="node_selected" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_node_selected"]
+[connection signal="copy_nodes_request" from="TabContainer/Nodes" to="TabContainer/Nodes" method="_on_Nodes_copy_nodes_request"]
