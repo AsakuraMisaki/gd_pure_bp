@@ -52,3 +52,5 @@ margin_bottom = 40.0
 [connection signal="copy_nodes_request" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_copy_nodes_request"]
 [connection signal="node_selected" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_node_selected"]
 [connection signal="copy_nodes_request" from="TabContainer/Nodes" to="TabContainer/Nodes" method="_on_Nodes_copy_nodes_request"]
+[connection signal="node_selected" from="TabContainer/Nodes" to="TabContainer/Nodes" method="_on_Nodes_node_selected"]
+[connection signal="node_unselected" from="TabContainer/Nodes" to="TabContainer/Nodes" method="_on_Nodes_node_unselected"]
