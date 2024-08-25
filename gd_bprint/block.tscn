@@ -15,7 +15,7 @@ margin_bottom = 605.0
 
 [node name="GridContainer" type="GridContainer" parent="."]
 margin_right = 1025.0
-margin_bottom = 70.0
+margin_bottom = 605.0
 
 [node name="TabContainer" type="TabContainer" parent="GridContainer"]
 margin_right = 41.0
