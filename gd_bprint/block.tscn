@@ -1,18 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://editor.gd" type="Script" id=1]
+[ext_resource path="res://root.gd" type="Script" id=2]
 [ext_resource path="res://buildContext.gd" type="Script" id=3]
 [ext_resource path="res://packedNodes.gd" type="Script" id=4]
 [ext_resource path="res://node.tscn" type="PackedScene" id=5]
 
-[node name="Node2D" type="Node2D"]
+[node name="EditorScene" type="Node2D"]
+script = ExtResource( 2 )
 
-[node name="TabContainer" type="TabContainer" parent="."]
-margin_right = 1027.0
-margin_bottom = 599.0
-tab_align = 0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1025.0
+margin_bottom = 605.0
 
-[node name="GraphEdit" type="GraphEdit" parent="TabContainer"]
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_right = 1025.0
+margin_bottom = 70.0
+
+[node name="TabContainer" type="TabContainer" parent="GridContainer"]
+margin_right = 41.0
+margin_bottom = 36.0
+tab_align = 2
+
+[node name="GraphEdit" type="GraphEdit" parent="GridContainer/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -20,37 +30,61 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 right_disconnects = true
-scroll_offset = Vector2( -4, -24 )
 snap_distance = 5
 show_zoom_label = true
 script = ExtResource( 1 )
 res_builder = ExtResource( 3 )
 
-[node name="Nodes" type="GraphEdit" parent="TabContainer"]
+[node name="Nodes" type="GraphEdit" parent="GridContainer/TabContainer"]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 script = ExtResource( 4 )
 res_node = ExtResource( 5 )
 
-[node name="Code" type="TextEdit" parent="TabContainer"]
+[node name="env" type="RichTextLabel" parent="GridContainer/TabContainer"]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 24.0
+margin_right = -4.0
+margin_bottom = -4.0
 
-[node name="debug" type="RichTextLabel" parent="TabContainer"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="Button" type="Button" parent="GridContainer"]
+margin_top = 40.0
+margin_right = 41.0
+margin_bottom = 60.0
+text = "save"
 
-[node name="env" type="RichTextLabel" parent="TabContainer"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="debug" type="TextEdit" parent="GridContainer"]
+margin_top = 64.0
+margin_right = 41.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 1, 1 )
+text = "[debug]"
+readonly = true
+smooth_scrolling = true
 
-[connection signal="connection_request" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
-[connection signal="copy_nodes_request" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_copy_nodes_request"]
-[connection signal="node_selected" from="TabContainer/GraphEdit" to="TabContainer/GraphEdit" method="_on_GraphEdit_node_selected"]
-[connection signal="copy_nodes_request" from="TabContainer/Nodes" to="TabContainer/Nodes" method="_on_Nodes_copy_nodes_request"]
-[connection signal="node_selected" from="TabContainer/Nodes" to="TabContainer/Nodes" method="_on_Nodes_node_selected"]
-[connection signal="node_unselected" from="TabContainer/Nodes" to="TabContainer/Nodes" method="_on_Nodes_node_unselected"]
+[node name="Code" type="TextEdit" parent="GridContainer"]
+margin_top = 69.0
+margin_right = 41.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 1, 1 )
+text = "[javascript]"
+readonly = true
+smooth_scrolling = true
+
+[connection signal="tab_changed" from="GridContainer/TabContainer" to="." method="_on_tab_change"]
+[connection signal="connection_request" from="GridContainer/TabContainer/GraphEdit" to="GridContainer/TabContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
+[connection signal="copy_nodes_request" from="GridContainer/TabContainer/GraphEdit" to="." method="_on_copy_nodes_request"]
+[connection signal="node_selected" from="GridContainer/TabContainer/GraphEdit" to="." method="_on_node_selected"]
+[connection signal="node_unselected" from="GridContainer/TabContainer/GraphEdit" to="." method="_on_node_unselected"]
+[connection signal="paste_nodes_request" from="GridContainer/TabContainer/GraphEdit" to="." method="_on_paste_nodes_request"]
+[connection signal="copy_nodes_request" from="GridContainer/TabContainer/Nodes" to="." method="_on_copy_nodes_request"]
+[connection signal="node_selected" from="GridContainer/TabContainer/Nodes" to="." method="_on_node_selected"]
+[connection signal="node_unselected" from="GridContainer/TabContainer/Nodes" to="." method="_on_node_unselected"]
