@@ -13,6 +13,7 @@ func _ready():
 
 	for item in list:
 		var pos = item.get_position()
+		if(not(item is GraphNode)): continue
 		var newNode = item.duplicate(8)
 		newNode.set_offset(Vector2(pos))
 		self.add_child(newNode)

@@ -2,51 +2,38 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="GraphNode" type="GraphNode" parent="."]
-margin_left = 91.0
-margin_top = 144.0
-margin_right = 245.0
-margin_bottom = 210.0
+[node name="basic" type="Label" parent="."]
+margin_left = 50.0
+margin_top = 12.0
+margin_right = 90.0
+margin_bottom = 26.0
+text = "basic"
+
+[node name="return" type="GraphNode" parent="."]
+margin_left = 190.0
+margin_top = 136.0
+margin_right = 273.0
+margin_bottom = 195.0
 title = "return"
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color( 0.298039, 0.752941, 0.764706, 1 )
 slot/0/right_enabled = false
 slot/0/right_type = 0
-slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
 
-[node name="Label" type="Label" parent="GraphNode"]
+[node name="value" type="Label" parent="return"]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 138.0
+margin_right = 67.0
 margin_bottom = 38.0
 text = "value"
 
-[node name="GraphNode3" type="GraphNode" parent="."]
-margin_left = 267.0
-margin_top = 58.0
-margin_right = 382.0
-margin_bottom = 123.0
-title = "else if"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color( 1, 1, 1, 1 )
-
-[node name="Label" type="Label" parent="GraphNode3"]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 99.0
-margin_bottom = 38.0
-text = "b_condition"
-
-[node name="GraphNode2" type="GraphNode" parent="."]
-margin_left = 86.0
-margin_top = 36.0
-margin_right = 220.0
-margin_bottom = 105.0
+[node name="if" type="GraphNode" parent="."]
+margin_left = 38.0
+margin_top = 41.0
+margin_right = 156.0
+margin_bottom = 115.0
 title = "if"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -54,30 +41,138 @@ slot/0/left_color = Color( 1, 1, 1, 1 )
 slot/0/right_enabled = false
 slot/0/right_type = 0
 slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color( 0.47451, 0.890196, 0.192157, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = true
+slot/2/right_type = 0
+slot/2/right_color = Color( 0.8, 0.278431, 0.278431, 1 )
 
-[node name="Label" type="Label" parent="GraphNode2"]
+[node name="b_con" type="Label" parent="if"]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 118.0
+margin_right = 102.0
 margin_bottom = 38.0
-text = "b_condition"
+text = "b_con"
 
-[node name="GraphNode4" type="GraphNode" parent="."]
-margin_left = 265.0
-margin_top = 150.0
-margin_right = 408.0
-margin_bottom = 211.0
-title = "else"
+[node name="true" type="Label" parent="if"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 102.0
+margin_bottom = 53.0
+text = "true"
+align = 2
+
+[node name="false" type="Label" parent="if"]
+margin_left = 16.0
+margin_top = 54.0
+margin_right = 102.0
+margin_bottom = 68.0
+text = "false"
+align = 2
+
+[node name=">>" type="GraphNode" parent="."]
+margin_left = 39.0
+margin_top = 134.0
+margin_right = 128.0
+margin_bottom = 202.0
+title = ">>"
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )
 slot/0/right_enabled = true
 slot/0/right_type = 0
-slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/0/right_color = Color( 0.388235, 0.992157, 0.196078, 1 )
 
-[node name="Label" type="Label" parent="GraphNode4"]
+[node name="body" type="Label" parent=">>"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 73.0
+margin_bottom = 38.0
+
+[node name="let" type="GraphNode" parent="."]
+margin_left = 42.0
+margin_top = 232.0
+margin_right = 132.0
+margin_bottom = 297.0
+title = "let"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_editor_description_": "%s0"
+}
+
+[node name="LineEdit" type="LineEdit" parent="let"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 74.0
+margin_bottom = 48.0
+text = "var0"
+align = 1
+
+[node name="std" type="Label" parent="."]
+margin_left = 690.0
+margin_top = 4.0
+margin_right = 730.0
+margin_bottom = 18.0
+text = "std"
+
+[node name="console" type="GraphNode" parent="."]
+margin_left = 682.0
+margin_top = 36.0
+margin_right = 765.0
+margin_bottom = 101.0
+title = "console"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_editor_description_": "%title%.%s0(%s1...)"
+}
+
+[node name="OptionButton" type="OptionButton" parent="console"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 67.0
+margin_bottom = 44.0
+text = "log"
+items = [ "log", null, false, 0, null, "warn", null, false, 1, null, "error", null, false, 2, null ]
+selected = 0
+
+[node name="performance" type="GraphNode" parent="."]
+margin_left = 683.0
+margin_top = 119.0
+margin_right = 826.0
+margin_bottom = 184.0
+title = "performance"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_editor_description_": "%title%(...%s)"
+}
+
+[node name="OptionButton" type="OptionButton" parent="performance"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 127.0
-margin_bottom = 38.0
-text = "{...}"
+margin_bottom = 44.0
+text = "now"
+items = [ "now", null, false, 0, null ]
+selected = 0

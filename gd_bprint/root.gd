@@ -5,8 +5,11 @@ signal un_select
 
 extends MyEdit
 
-onready var tab:TabContainer = get_node("TabContainer")
-onready var debuger:TextEdit = get_node("debug")
+onready var tab:TabContainer = get_node("work/TabContainer")
+onready var debuger:RichTextLabel = get_node("work/HBoxContainer/debug")
+
+export(Resource) var env:Resource;
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -14,10 +17,11 @@ var debug_mes = "\n \t {mes}"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# env.instance()
+	# prints(env.envs, env.path)
+	
 	PGL.connect("debug", self, "write_debug")
 	PGL.emit_signal("debug", "working")
-	PGL.emit_signal("debug", "vesion .1")
-	var width:int = 
 	PGL.emit_signal("debug", "vesion .1")
 	pass # Replace with function body.
 
@@ -50,8 +54,11 @@ func _on_node_delete(node:Node):
 	pass
 
 func _on_tab_change(slot:int):
-	var pre:GraphEdit = tab.get_tab_control(tab.get_previous_tab())
-	var now:GraphEdit = tab.get_current_tab_control()
+	var now = tab.get_current_tab_control()
+	var pre = tab.get_tab_control(tab.get_previous_tab())
+	if(not(now is GraphEdit) || not(pre is GraphEdit)): return
+	# pre = pre
+	# now = now
 	if(pre && (pre.selects is Array)):
 		pre.selects = PGL.selects
 	if(now && (now.selects is Array)):
@@ -59,8 +66,8 @@ func _on_tab_change(slot:int):
 	prints(PGL.selects, pre, now)
 
 func write_debug(mes:String):
-	var text:String = debuger.get_text()
-	debuger.set_text(text + debug_mes.format({"mes":mes}))
+	debuger.add_text(debug_mes.format({"mes":mes}))
+	pass
 
 func run():
 	var now:GraphEdit = tab.get_current_tab_control()

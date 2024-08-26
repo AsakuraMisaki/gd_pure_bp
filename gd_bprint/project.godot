@@ -22,12 +22,24 @@ _global_script_class_icons={
 
 config/name="gd_bprint"
 run/main_scene="res://block.tscn"
+config/use_hidden_project_data_directory=false
 config/icon="res://icon.png"
 
 [autoload]
 
 PGL="*res://global.gd"
 EditBase="*res://editBase.gd"
+PackedEnv="*res://env/packed_env.tscn"
+
+[display]
+
+window/size/width=1280
+window/size/height=640
+window/stretch/mode="2d"
+
+[editor]
+
+search_in_file_extensions=PoolStringArray( "gd", "gdshader", "shader", "json" )
 
 [gui]
 
@@ -39,5 +51,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_clear_color=Color( 0.207843, 0.376471, 0.360784, 1 )
+environment/default_clear_color=Color( 0.333333, 0.486275, 0.498039, 1 )
 environment/default_environment="res://default_env.tres"
