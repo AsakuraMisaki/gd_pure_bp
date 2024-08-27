@@ -3,11 +3,25 @@ extends Node
 export(Array, String) var envs:Array
 export(String) var path:String
 
+var search:Tree
 var contextDic: Dictionary = Dictionary()
+
+func _readyPopTree():
+	var tree = Tree.new()
+	var root = tree.create_item()
+	root.set_text(0, "root")
+	var child1 = tree.create_item(root)
+	# tree.set_hide_root(false)
+	
+	# var subchild1 = tree.create_item(child1)
+	# subchild1.set_text(0, "Subchild1")
+	search = tree
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print_debug(envs)
+	_readyPopTree()
 	# var partern = r"window\[`tdoc-\$\{performance\.now()\}`\]"
 	var tar:RegEx = RegEx.new()
 	tar.compile("(?i)window\\[`tdoc-\\$\\{performance\\.now\\(\\)\\}`\\]\\s*=\\s*")

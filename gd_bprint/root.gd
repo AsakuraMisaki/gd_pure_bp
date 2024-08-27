@@ -8,7 +8,10 @@ extends MyEdit
 onready var tab:TabContainer = get_node("work/TabContainer")
 onready var debuger:RichTextLabel = get_node("work/HBoxContainer/debug")
 
-export(Resource) var env:Resource;
+export(Resource) var env:Resource
+export(PackedScene) var r_popmenu:PackedScene 
+
+onready var popmenu:Node = r_popmenu.instance()
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -26,13 +29,21 @@ func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if(PGL.trigger(KEY_SPACE)):
+	
+	if(PGL.trigger(KEY_CENT)):
 		var g:GraphNode = PackedEnv._makeGraphNode(PackedEnv.contextDic.Array.splice)
-		var edit:GraphEdit = tab.get_current_tab_control()
 		var vp:Viewport = get_viewport()
 		var point:Vector2 = vp.get_mouse_position()
 		g.set_offset(point)
-		edit.add_child(g)
+		self.add_child(g)
+	if(PGL.trigger(KEY_SPACE)):
+		if(self.get_children().has(popmenu)):
+			self.remove_child(popmenu)
+		else:
+			var vp:Viewport = get_viewport()
+			var point:Vector2 = vp.get_mouse_position()
+			popmenu.set_position(point)
+			self.add_child(popmenu)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

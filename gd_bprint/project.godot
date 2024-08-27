@@ -31,6 +31,10 @@ PGL="*res://global.gd"
 EditBase="*res://editBase.gd"
 PackedEnv="*res://env/packed_env.tscn"
 
+[debug]
+
+gdscript/warnings/unused_variable=false
+
 [display]
 
 window/size/width=1280
