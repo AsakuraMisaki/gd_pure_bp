@@ -20,14 +20,25 @@ func _ready():
 	# env.instance()
 	# prints(env.envs, env.path)
 	
-	PGL.connect("debug", self, "write_debug")
-	PGL.emit_signal("debug", "working")
-	PGL.emit_signal("debug", "vesion .1")
+	# PGL.connect("debug", self, "write_debug")
+	# PGL.emit_signal("debug", "working")
+	# PGL.emit_signal("debug", "vesion .1")
 	pass # Replace with function body.
 
+func _input(event):
+	if(PGL.trigger(KEY_SPACE)):
+		var g:GraphNode = PackedEnv._makeGraphNode(PackedEnv.contextDic.Array.splice)
+		var edit:GraphEdit = tab.get_current_tab_control()
+		var vp:Viewport = get_viewport()
+		var point:Vector2 = vp.get_mouse_position()
+		g.set_offset(point)
+		edit.add_child(g)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if(PGL.debugs.size()):
+		write_debug(PGL.debugs.pop_front())
+	
 	# prints(PGL.selecteds.size(), PGL.selecteds)
 	pass
 

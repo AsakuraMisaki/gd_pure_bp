@@ -1,4 +1,4 @@
-{
+window[`tdoc-${performance.now()}`] = {
 	"id": 0,
 	"name": "typescript",
 	"variant": "project",
