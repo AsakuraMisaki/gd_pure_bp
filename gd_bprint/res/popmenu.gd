@@ -16,11 +16,11 @@ func _refresh(text:String):
 	tree.clear()
 	var root = tree.create_item()
 	root.set_text(0, "root")
-	for name in targetobj.keys():
+	for name in targetobj:
 		var items:Dictionary = targetobj[name]
 		var second = tree.create_item(root)
 		second.set_text(0, name)
-		for name1 in targetobj.keys():
+		for name1 in items:
 			var trd = tree.create_item(second)
 			trd.set_text(0, name1)
 		pass	
@@ -40,17 +40,21 @@ func dofilter(text:String) -> Dictionary:
 	if(!text.length()): return obj
 	var targetobj:Dictionary = {}
 	var reg = RegEx.new()
-	reg.compile(text)
-	for item in obj:
-		for data in item:
+	reg.compile("(?i)" + text)
+	for name in obj:
+		var item:Dictionary = obj[name]
+		# print_debug(item)
+		for name1 in item:
+			var data:Dictionary = item[name1]
 			var searched = reg.search(data.name)
 			if(!searched):
 				pass
 		# 	# search = reg.search(item.description)
 			elif(searched):
-				var parent = targetobj.get(item.parent, {})
+				print_debug(searched.to_string())
+				var parent = targetobj.get(data.parent, {})
 				parent[data.name] = data
-				targetobj[item.parent] = parent
+				targetobj[data.parent] = parent
 		# pass
 	return targetobj
 	pass
