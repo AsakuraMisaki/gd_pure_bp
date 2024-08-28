@@ -1,4 +1,4 @@
-extends MyEdit
+extends GraphEdit
 
 export(Script) var res_builder
 
@@ -17,7 +17,8 @@ func updateSourceSignl():
 	pass
 
 func _on_GraphEdit_connection_request(from:String, from_slot:int, to:String, to_slot:int):
-	
+	prints(from, from_slot, to, to_slot)
+	.connect_node(from, from_slot, to, to_slot)
 	pass 
 
 

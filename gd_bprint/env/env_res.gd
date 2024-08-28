@@ -33,7 +33,7 @@ func _ready():
 		
 		# "Math", "JSON", "Number", "Object", "Date", "RegExp", "ArrayConstructor"
 		var targets:Dictionary = _getInterface(dic, 
-								["Array", ])
+								["Array", "Number"])
 		contextDic.merge(targets)
 		file.close()
 		pass
@@ -96,7 +96,7 @@ func _getInterface(dic:Dictionary, targets:Array = []) -> Dictionary:
 func _makeGraphNode(obj:Dictionary) -> GraphNode:
 	var node:GraphNode = GraphNode.new()
 	var sep:HSeparator = HSeparator.new()
-	node.title = obj.parent + '.' + obj.name
+	node.title = obj.parent + '\n.' + obj.name
 	var goon:Label = Label.new()
 	goon.text = " "
 	goon.align = Label.ALIGN_CENTER
@@ -120,11 +120,12 @@ func _makeGraphNode(obj:Dictionary) -> GraphNode:
 	out.set_meta("type", "return")
 	var children:Array = node.get_children()
 	for item in children:
+		if(!item.has_meta("type")): continue
 		var tt = item.get_meta("type")
 		var i:int = item.get_index()
 		match tt:
 			"flow":
-				node.set_slot(i, true, 0, Color(0x9ce9ef), true, 0, Color(0x9ce9ef))
+				node.set_slot(i, true, 1, Color(0x9ce9ef), true, 1, Color(0x9ce9ef))
 			"return":
 				node.set_slot(i, false, 0, Color(0x9ce9ef), true, 0, Color(0x9ce9ef))
 			"param":

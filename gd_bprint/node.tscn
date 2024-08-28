@@ -2,18 +2,31 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="basic" type="Label" parent="."]
-margin_left = 50.0
-margin_top = 12.0
-margin_right = 90.0
-margin_bottom = 26.0
-text = "basic"
+[node name="return" type="GraphNode" parent="."]
+margin_left = 275.0
+margin_top = 111.0
+margin_right = 367.0
+margin_bottom = 171.0
+title = "return"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
+
+[node name="value" type="Label" parent="return"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 76.0
+margin_bottom = 38.0
+text = "value"
 
 [node name="color" type="GraphNode" parent="."]
-margin_left = 182.0
-margin_top = 231.0
-margin_right = 275.0
-margin_bottom = 295.0
+margin_left = 17.0
+margin_top = 34.0
+margin_right = 110.0
+margin_bottom = 98.0
 title = "color"
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -29,36 +42,16 @@ margin_right = 77.0
 margin_bottom = 44.0
 color = Color( 0.843137, 0.843137, 0.843137, 1 )
 
-[node name="return" type="GraphNode" parent="."]
-margin_left = 182.0
-margin_top = 141.0
-margin_right = 265.0
-margin_bottom = 200.0
-title = "return"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
-slot/0/right_enabled = false
-slot/0/right_type = 0
-slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
-
-[node name="value" type="Label" parent="return"]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 67.0
-margin_bottom = 38.0
-text = "value"
-
 [node name="if" type="GraphNode" parent="."]
-margin_left = 408.0
-margin_top = 164.0
-margin_right = 574.0
-margin_bottom = 261.0
+margin_left = 21.0
+margin_top = 193.0
+margin_right = 187.0
+margin_bottom = 302.0
 title = "if"
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )
-slot/0/right_enabled = false
+slot/0/right_enabled = true
 slot/0/right_type = 0
 slot/0/right_color = Color( 1, 1, 1, 1 )
 slot/1/left_enabled = false
@@ -67,10 +60,10 @@ slot/1/left_color = Color( 1, 1, 1, 1 )
 slot/1/right_enabled = false
 slot/1/right_type = 0
 slot/1/right_color = Color( 0.47451, 0.890196, 0.192157, 1 )
-slot/2/left_enabled = false
+slot/2/left_enabled = true
 slot/2/left_type = 0
 slot/2/left_color = Color( 1, 1, 1, 1 )
-slot/2/right_enabled = true
+slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 0.8, 0.278431, 0.278431, 1 )
 slot/3/left_enabled = false
@@ -91,53 +84,65 @@ slot/5/left_color = Color( 1, 1, 1, 1 )
 slot/5/right_enabled = false
 slot/5/right_type = 0
 slot/5/right_color = Color( 1, 1, 1, 1 )
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color( 1, 1, 1, 1 )
+slot/6/right_enabled = true
+slot/6/right_type = 0
+slot/6/right_color = Color( 1, 1, 1, 1 )
 
-[node name="b_con" type="Label" parent="if"]
+[node name="flow" type="Label" parent="if"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 150.0
 margin_bottom = 38.0
-text = "b_con"
 
-[node name="HSeparator" type="HSeparator" parent="if"]
+[node name="HSeparator4" type="HSeparator" parent="if"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 150.0
 margin_bottom = 43.0
 
-[node name="true" type="Label" parent="if"]
+[node name="b_con" type="Label" parent="if"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 150.0
 margin_bottom = 58.0
-text = "true"
-align = 2
+text = "b_con"
 
-[node name="HSeparator2" type="HSeparator" parent="if"]
+[node name="HSeparator" type="HSeparator" parent="if"]
 margin_left = 16.0
 margin_top = 59.0
 margin_right = 150.0
 margin_bottom = 63.0
 
-[node name="false" type="Label" parent="if"]
+[node name="true" type="Label" parent="if"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 150.0
 margin_bottom = 78.0
-text = "false"
+text = "true"
 align = 2
 
-[node name="HSeparator3" type="HSeparator" parent="if"]
+[node name="HSeparator2" type="HSeparator" parent="if"]
 margin_left = 16.0
 margin_top = 79.0
 margin_right = 150.0
 margin_bottom = 83.0
 
-[node name=">>" type="GraphNode" parent="."]
-margin_left = 39.0
-margin_top = 134.0
-margin_right = 128.0
-margin_bottom = 202.0
+[node name="false" type="Label" parent="if"]
+margin_left = 16.0
+margin_top = 84.0
+margin_right = 150.0
+margin_bottom = 98.0
+text = "false"
+align = 2
+
+[node name="entry" type="GraphNode" parent="."]
+margin_left = 270.0
+margin_top = 30.0
+margin_right = 359.0
+margin_bottom = 98.0
 title = "ENTRY"
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -146,17 +151,17 @@ slot/0/right_enabled = true
 slot/0/right_type = 0
 slot/0/right_color = Color( 0.388235, 0.992157, 0.196078, 1 )
 
-[node name="body" type="Label" parent=">>"]
+[node name="body" type="Label" parent="entry"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 73.0
 margin_bottom = 38.0
 
 [node name="let" type="GraphNode" parent="."]
-margin_left = 42.0
-margin_top = 232.0
-margin_right = 132.0
-margin_bottom = 341.0
+margin_left = 21.0
+margin_top = 108.0
+margin_right = 111.0
+margin_bottom = 170.0
 title = "let"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -175,3 +180,392 @@ margin_right = 74.0
 margin_bottom = 48.0
 text = "var0"
 align = 1
+
+[node name="for" type="GraphNode" parent="."]
+margin_left = 273.0
+margin_top = 196.0
+margin_right = 439.0
+margin_bottom = 305.0
+title = "for_in"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 0.47451, 0.890196, 0.192157, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 0.8, 0.278431, 0.278431, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = true
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color( 1, 1, 1, 1 )
+slot/5/right_enabled = false
+slot/5/right_type = 0
+slot/5/right_color = Color( 1, 1, 1, 1 )
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color( 1, 1, 1, 1 )
+slot/6/right_enabled = true
+slot/6/right_type = 0
+slot/6/right_color = Color( 1, 1, 1, 1 )
+
+[node name="flow" type="Label" parent="for"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 150.0
+margin_bottom = 38.0
+
+[node name="HSeparator4" type="HSeparator" parent="for"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 150.0
+margin_bottom = 43.0
+
+[node name="b_con" type="Label" parent="for"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 150.0
+margin_bottom = 58.0
+text = "object"
+
+[node name="HSeparator" type="HSeparator" parent="for"]
+margin_left = 16.0
+margin_top = 59.0
+margin_right = 150.0
+margin_bottom = 63.0
+
+[node name="true" type="Label" parent="for"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 150.0
+margin_bottom = 78.0
+text = "body"
+align = 2
+
+[node name="HSeparator2" type="HSeparator" parent="for"]
+margin_left = 16.0
+margin_top = 79.0
+margin_right = 150.0
+margin_bottom = 83.0
+
+[node name="false" type="Label" parent="for"]
+margin_left = 16.0
+margin_top = 84.0
+margin_right = 150.0
+margin_bottom = 98.0
+text = "item"
+align = 2
+
+[node name="for_each" type="GraphNode" parent="."]
+margin_left = 22.0
+margin_top = 328.0
+margin_right = 188.0
+margin_bottom = 437.0
+title = "for_each"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 0.47451, 0.890196, 0.192157, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 0.8, 0.278431, 0.278431, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = true
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color( 1, 1, 1, 1 )
+slot/5/right_enabled = false
+slot/5/right_type = 0
+slot/5/right_color = Color( 1, 1, 1, 1 )
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color( 1, 1, 1, 1 )
+slot/6/right_enabled = true
+slot/6/right_type = 0
+slot/6/right_color = Color( 1, 1, 1, 1 )
+
+[node name="flow" type="Label" parent="for_each"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 150.0
+margin_bottom = 38.0
+
+[node name="HSeparator4" type="HSeparator" parent="for_each"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 150.0
+margin_bottom = 43.0
+
+[node name="b_con" type="Label" parent="for_each"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 150.0
+margin_bottom = 58.0
+text = "array"
+
+[node name="HSeparator" type="HSeparator" parent="for_each"]
+margin_left = 16.0
+margin_top = 59.0
+margin_right = 150.0
+margin_bottom = 63.0
+
+[node name="true" type="Label" parent="for_each"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 150.0
+margin_bottom = 78.0
+text = "body"
+align = 2
+
+[node name="HSeparator2" type="HSeparator" parent="for_each"]
+margin_left = 16.0
+margin_top = 79.0
+margin_right = 150.0
+margin_bottom = 83.0
+
+[node name="false" type="Label" parent="for_each"]
+margin_left = 16.0
+margin_top = 84.0
+margin_right = 150.0
+margin_bottom = 98.0
+text = "item"
+align = 2
+
+[node name="code" type="GraphNode" parent="."]
+margin_left = 276.0
+margin_top = 330.0
+margin_right = 452.0
+margin_bottom = 424.0
+title = "code"
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_editor_description_": "%s0"
+}
+
+[node name="Label" type="Label" parent="code"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 160.0
+margin_bottom = 38.0
+
+[node name="TextEdit" type="TextEdit" parent="code"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 160.0
+margin_bottom = 88.0
+size_flags_vertical = 3
+text = "//console.log
+//return"
+highlight_current_line = true
+show_line_numbers = true
+
+[node name="Function" type="GraphNode" parent="."]
+margin_left = 25.0
+margin_top = 478.0
+margin_right = 257.0
+margin_bottom = 617.0
+title = "Func"
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_editor_description_": "%s0"
+}
+
+[node name="Label" type="Label" parent="Function"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 216.0
+margin_bottom = 38.0
+
+[node name="TextEdit" type="TextEdit" parent="Function"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 216.0
+margin_bottom = 107.0
+size_flags_vertical = 3
+text = "//console.log(p0, p1, p2)"
+highlight_current_line = true
+show_line_numbers = true
+
+[node name="HSeparator4" type="HSeparator" parent="Function"]
+margin_left = 16.0
+margin_top = 108.0
+margin_right = 216.0
+margin_bottom = 112.0
+
+[node name="Button" type="Button" parent="Function"]
+margin_left = 16.0
+margin_top = 113.0
+margin_right = 51.0
+margin_bottom = 133.0
+size_flags_horizontal = 0
+text = "add"
+
+[node name="as" type="GraphNode" parent="."]
+margin_left = 508.0
+margin_top = 344.0
+margin_right = 612.0
+margin_bottom = 414.0
+title = "as"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = true
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+
+[node name="value" type="Label" parent="as"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 88.0
+margin_bottom = 38.0
+text = "value"
+
+[node name="HSeparator4" type="HSeparator" parent="as"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 88.0
+margin_bottom = 43.0
+
+[node name="OptionButton" type="OptionButton" parent="as"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 88.0
+margin_bottom = 64.0
+text = "Object"
+items = [ "Object", null, false, 0, null ]
+selected = 0
+
+[node name="is" type="GraphNode" parent="."]
+margin_left = 512.0
+margin_top = 444.0
+margin_right = 616.0
+margin_bottom = 514.0
+title = "is"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = true
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+
+[node name="value" type="Label" parent="is"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 88.0
+margin_bottom = 38.0
+text = "value"
+
+[node name="HSeparator4" type="HSeparator" parent="is"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 88.0
+margin_bottom = 43.0
+
+[node name="class" type="Label" parent="is"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 88.0
+margin_bottom = 58.0
+text = "class"
