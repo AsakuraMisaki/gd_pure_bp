@@ -50,10 +50,10 @@ margin_bottom = 38.0
 text = "value"
 
 [node name="if" type="GraphNode" parent="."]
-margin_left = 93.0
-margin_top = 41.0
-margin_right = 211.0
-margin_bottom = 115.0
+margin_left = 408.0
+margin_top = 164.0
+margin_right = 574.0
+margin_bottom = 261.0
 title = "if"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -64,7 +64,7 @@ slot/0/right_color = Color( 1, 1, 1, 1 )
 slot/1/left_enabled = false
 slot/1/left_type = 0
 slot/1/left_color = Color( 1, 1, 1, 1 )
-slot/1/right_enabled = true
+slot/1/right_enabled = false
 slot/1/right_type = 0
 slot/1/right_color = Color( 0.47451, 0.890196, 0.192157, 1 )
 slot/2/left_enabled = false
@@ -73,29 +73,65 @@ slot/2/left_color = Color( 1, 1, 1, 1 )
 slot/2/right_enabled = true
 slot/2/right_type = 0
 slot/2/right_color = Color( 0.8, 0.278431, 0.278431, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = true
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color( 1, 1, 1, 1 )
+slot/5/right_enabled = false
+slot/5/right_type = 0
+slot/5/right_color = Color( 1, 1, 1, 1 )
 
 [node name="b_con" type="Label" parent="if"]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 102.0
+margin_right = 150.0
 margin_bottom = 38.0
 text = "b_con"
 
-[node name="true" type="Label" parent="if"]
+[node name="HSeparator" type="HSeparator" parent="if"]
 margin_left = 16.0
 margin_top = 39.0
-margin_right = 102.0
-margin_bottom = 53.0
+margin_right = 150.0
+margin_bottom = 43.0
+
+[node name="true" type="Label" parent="if"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 150.0
+margin_bottom = 58.0
 text = "true"
 align = 2
 
+[node name="HSeparator2" type="HSeparator" parent="if"]
+margin_left = 16.0
+margin_top = 59.0
+margin_right = 150.0
+margin_bottom = 63.0
+
 [node name="false" type="Label" parent="if"]
 margin_left = 16.0
-margin_top = 54.0
-margin_right = 102.0
-margin_bottom = 68.0
+margin_top = 64.0
+margin_right = 150.0
+margin_bottom = 78.0
 text = "false"
 align = 2
+
+[node name="HSeparator3" type="HSeparator" parent="if"]
+margin_left = 16.0
+margin_top = 79.0
+margin_right = 150.0
+margin_bottom = 83.0
 
 [node name=">>" type="GraphNode" parent="."]
 margin_left = 39.0
@@ -120,7 +156,7 @@ margin_bottom = 38.0
 margin_left = 42.0
 margin_top = 232.0
 margin_right = 132.0
-margin_bottom = 297.0
+margin_bottom = 341.0
 title = "let"
 slot/0/left_enabled = true
 slot/0/left_type = 0

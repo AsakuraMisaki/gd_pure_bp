@@ -3,8 +3,30 @@ extends Panel
 onready var tree:Tree = get_node("Tree")
 onready var search:LineEdit = get_node("search")
 
+signal node_created
+
+func _input(event):
+	
+	if(event.is_action_pressed("add_graph_node")):
+		var item:TreeItem = tree.get_selected()
+		if(!item): return
+		# var gr:Rect2 = tree.get_global_rect()
+		# var area:Rect2 = tree.get_item_area_rect(item)
+		# var a2:Rect2 = Rect2(gr.position + area.position, area.size)
+		# var tarRec:Rect2 = gr.clip(a2)
+		# prints(gr, a2, tarRec)
+		# prints(tarRec.has_point(event.position))
+	else:
+		pass
+		# var item:TreeItem = tree.get_next_selected(null)
+		# print_debug(item)
+	
+	pass
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	tree.connect("item_activated", self, "_on_Tree_item_activated")
+	tree.ensure_cursor_is_visible()
 	var root = tree.create_item()
 	root.set_text(0, "root")
 	var child1 = tree.create_item(root)
@@ -23,6 +45,7 @@ func _refresh(text:String):
 		for name1 in items:
 			var trd = tree.create_item(second)
 			trd.set_text(0, name1)
+			trd.set_meta("context", items[name1])
 		pass	
 	pass
 
@@ -66,4 +89,15 @@ func dofilter(text:String) -> Dictionary:
 
 func _on_search_text_changed(new_text:String):
 	_refresh(new_text)
+	pass # Replace with function body.
+
+
+func _on_Tree_item_activated():
+	var item:TreeItem = tree.get_selected()
+	print_debug(item)
+	var context:Dictionary = item.get_meta("context")
+	if(context):
+		var node:GraphNode = PackedEnv._makeGraphNode(context)
+		emit_signal("node_created", node)
+	# print_debug()
 	pass # Replace with function body.

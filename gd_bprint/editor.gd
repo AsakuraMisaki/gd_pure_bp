@@ -17,6 +17,7 @@ func updateSourceSignl():
 	pass
 
 func _on_GraphEdit_connection_request(from:String, from_slot:int, to:String, to_slot:int):
+	
 	pass 
 
 

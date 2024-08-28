@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://editor.gd" type="Script" id=1]
 [ext_resource path="res://root.gd" type="Script" id=2]
 [ext_resource path="res://buildContext.gd" type="Script" id=3]
-[ext_resource path="res://packedNodes.gd" type="Script" id=4]
-[ext_resource path="res://node.tscn" type="PackedScene" id=5]
 [ext_resource path="res://res/popmenu.tscn" type="PackedScene" id=6]
 
 [node name="EditorScene" type="Node2D"]
@@ -34,17 +32,6 @@ snap_distance = 5
 show_zoom_label = true
 script = ExtResource( 1 )
 res_builder = ExtResource( 3 )
-
-[node name="Nodes" type="GraphEdit" parent="work/TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 4 )
-res_node = ExtResource( 5 )
 
 [node name="env" type="RichTextLabel" parent="work/TabContainer"]
 visible = false
@@ -83,12 +70,8 @@ margin_right = 41.0
 margin_bottom = 20.0
 text = "save"
 
-[connection signal="tab_changed" from="work/TabContainer" to="." method="_on_tab_change"]
 [connection signal="connection_request" from="work/TabContainer/GraphEdit" to="work/TabContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="copy_nodes_request" from="work/TabContainer/GraphEdit" to="." method="_on_copy_nodes_request"]
 [connection signal="node_selected" from="work/TabContainer/GraphEdit" to="." method="_on_node_selected"]
 [connection signal="node_unselected" from="work/TabContainer/GraphEdit" to="." method="_on_node_unselected"]
 [connection signal="paste_nodes_request" from="work/TabContainer/GraphEdit" to="." method="_on_paste_nodes_request"]
-[connection signal="copy_nodes_request" from="work/TabContainer/Nodes" to="." method="_on_copy_nodes_request"]
-[connection signal="node_selected" from="work/TabContainer/Nodes" to="." method="_on_node_selected"]
-[connection signal="node_unselected" from="work/TabContainer/Nodes" to="." method="_on_node_unselected"]

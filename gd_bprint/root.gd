@@ -7,6 +7,7 @@ extends MyEdit
 
 onready var tab:TabContainer = get_node("work/TabContainer")
 onready var debuger:RichTextLabel = get_node("work/HBoxContainer/debug")
+onready var editor:GraphEdit = get_node("work/TabContainer/GraphEdit")
 
 export(Resource) var env:Resource
 export(PackedScene) var r_popmenu:PackedScene 
@@ -20,6 +21,7 @@ var debug_mes = "\n \t {mes}"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	popmenu.connect("node_created", self, "on_popmenu_node_created")
 	# env.instance()
 	# prints(env.envs, env.path)
 	
@@ -28,28 +30,29 @@ func _ready():
 	# PGL.emit_signal("debug", "vesion .1")
 	pass # Replace with function body.
 
+func on_popmenu_node_created(node:GraphNode):
+	var vp:Viewport = get_viewport()
+	var point:Vector2 = vp.get_mouse_position()
+	node.set_offset(point)
+	editor.add_child(node)
+	var size:Vector2 = node.get_rect().size
+	print_debug(size)
+	node.set_size(size * Vector2(1, 1))
+	self.remove_child(popmenu)
+	pass
+
 func _input(event):
-	
-	if(PGL.trigger(KEY_CENT)):
-		var g:GraphNode = PackedEnv._makeGraphNode(PackedEnv.contextDic.Array.splice)
+	if(event.is_action("popmenu_request")):
 		var vp:Viewport = get_viewport()
 		var point:Vector2 = vp.get_mouse_position()
-		g.set_offset(point)
-		self.add_child(g)
-	if(PGL.trigger(KEY_SPACE)):
-		if(self.get_children().has(popmenu)):
-			self.remove_child(popmenu)
-		else:
-			var vp:Viewport = get_viewport()
-			var point:Vector2 = vp.get_mouse_position()
-			popmenu.set_position(point)
+		popmenu.set_position(point)
+		if(!(self.get_children().has(popmenu))):
 			self.add_child(popmenu)
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(PGL.debugs.size()):
 		write_debug(PGL.debugs.pop_front())
-	
 	# prints(PGL.selecteds.size(), PGL.selecteds)
 	pass
 
@@ -75,25 +78,12 @@ func _on_node_delete(node:Node):
 	._node_delete(edit, node)
 	pass
 
-func _on_tab_change(slot:int):
-	var now = tab.get_current_tab_control()
-	var pre = tab.get_tab_control(tab.get_previous_tab())
-	if(not(now is GraphEdit) || not(pre is GraphEdit)): return
-	# pre = pre
-	# now = now
-	if(pre && (pre.selects is Array)):
-		pre.selects = PGL.selects
-	if(now && (now.selects is Array)):
-		PGL.selects = now.selects
-	prints(PGL.selects, pre, now)
-
 func write_debug(mes:String):
 	debuger.add_text(debug_mes.format({"mes":mes}))
 	pass
 
 func run():
-	var now:GraphEdit = tab.get_current_tab_control()
-	var entry:GraphNode = now.get_node("entry")
+	var entry:GraphNode = editor.get_node("entry")
 	_run(entry)
 	pass
 
