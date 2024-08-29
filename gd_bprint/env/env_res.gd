@@ -41,6 +41,13 @@ func _ready():
 	
 	pass # Replace with function body.
 
+# ports type get_value
+func _get_value(node:Node):
+	var custom = node.get_meta("custom_editor_meta")
+	# if(custom.match("#flow")):
+		
+		
+
 # getInterface from ts
 func _getInterface(dic:Dictionary, targets:Array = []) -> Dictionary:
 	var groups:Array = dic.groups

@@ -43,4 +43,8 @@ func _selected(node:Node):
 func _node_delete(tab:GraphEdit, node:Node):
 	tab.remove_child(node)
 	pass
+
+func _get_code(node:GraphNode):
+	
+	pass
 	

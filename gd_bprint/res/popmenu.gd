@@ -49,14 +49,7 @@ func _refresh(text:String):
 		pass	
 	pass
 
-func _dofilter(reg:RegEx, children:Array, targetobj:Dictionary):
-	for item in children:
-		if(reg.search(item.name)):
-			var parent = targetobj.get(item.parent, {})
 
-
-		pass
-	return 
 
 func dofilter(text:String) -> Dictionary:
 	var obj:Dictionary = PackedEnv.contextDic

@@ -2,11 +2,50 @@
 
 [node name="Node2D" type="Node2D"]
 
+[node name="entry" type="GraphNode" parent="."]
+margin_left = 29.0
+margin_top = 9.0
+margin_right = 118.0
+margin_bottom = 77.0
+title = "ENTRY"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.388235, 0.992157, 0.196078, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_editor_description_": "#entry:true",
+"custom_editor_meta": "#entry
+$0
+"
+}
+
+[node name="body" type="Label" parent="entry"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 73.0
+margin_bottom = 38.0
+
+[node name="Button" type="Button" parent="entry"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 51.0
+margin_bottom = 59.0
+size_flags_horizontal = 0
+text = "add"
+
 [node name="return" type="GraphNode" parent="."]
-margin_left = 275.0
-margin_top = 111.0
-margin_right = 367.0
-margin_bottom = 171.0
+margin_left = 30.0
+margin_top = 101.0
+margin_right = 122.0
+margin_bottom = 161.0
 title = "return"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -14,19 +53,47 @@ slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
 slot/0/right_enabled = false
 slot/0/right_type = 0
 slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$0
+return $1"
+}
 
 [node name="value" type="Label" parent="return"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 76.0
 margin_bottom = 38.0
+
+[node name="HSeparator4" type="HSeparator" parent="return"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 76.0
+margin_bottom = 43.0
+
+[node name="value2" type="Label" parent="return"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 76.0
+margin_bottom = 58.0
 text = "value"
 
 [node name="color" type="GraphNode" parent="."]
-margin_left = 17.0
-margin_top = 34.0
-margin_right = 110.0
-margin_bottom = 98.0
+margin_left = 577.0
+margin_top = 32.0
+margin_right = 670.0
+margin_bottom = 96.0
 title = "color"
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -43,10 +110,10 @@ margin_bottom = 44.0
 color = Color( 0.843137, 0.843137, 0.843137, 1 )
 
 [node name="if" type="GraphNode" parent="."]
-margin_left = 21.0
-margin_top = 193.0
-margin_right = 187.0
-margin_bottom = 302.0
+margin_left = -3.0
+margin_top = 192.0
+margin_right = 163.0
+margin_bottom = 301.0
 title = "if"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -90,6 +157,10 @@ slot/6/left_color = Color( 1, 1, 1, 1 )
 slot/6/right_enabled = true
 slot/6/right_type = 0
 slot/6/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$0
+if($1){$2}else{$3}"
+}
 
 [node name="flow" type="Label" parent="if"]
 margin_left = 16.0
@@ -138,30 +209,11 @@ margin_bottom = 98.0
 text = "false"
 align = 2
 
-[node name="entry" type="GraphNode" parent="."]
-margin_left = 270.0
-margin_top = 30.0
-margin_right = 359.0
-margin_bottom = 98.0
-title = "ENTRY"
-slot/0/left_enabled = false
-slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color( 0.388235, 0.992157, 0.196078, 1 )
-
-[node name="body" type="Label" parent="entry"]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 73.0
-margin_bottom = 38.0
-
 [node name="let" type="GraphNode" parent="."]
-margin_left = 21.0
-margin_top = 108.0
-margin_right = 111.0
-margin_bottom = 170.0
+margin_left = 33.0
+margin_top = 804.0
+margin_right = 123.0
+margin_bottom = 866.0
 title = "let"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -170,22 +222,25 @@ slot/0/right_enabled = true
 slot/0/right_type = 0
 slot/0/right_color = Color( 1, 1, 1, 1 )
 __meta__ = {
-"_editor_description_": "%s0"
+"_editor_description_": "%s0",
+"custom_editor_meta": "$0
+$0"
 }
 
-[node name="LineEdit" type="LineEdit" parent="let"]
+[node name="OptionButton" type="OptionButton" parent="let"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 74.0
-margin_bottom = 48.0
+margin_bottom = 44.0
 text = "var0"
-align = 1
+items = [ "var0", null, false, 7, null ]
+selected = 0
 
 [node name="for" type="GraphNode" parent="."]
-margin_left = 273.0
-margin_top = 196.0
-margin_right = 439.0
-margin_bottom = 305.0
+margin_left = 1.0
+margin_top = 319.0
+margin_right = 167.0
+margin_bottom = 428.0
 title = "for_in"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -229,6 +284,12 @@ slot/6/left_color = Color( 1, 1, 1, 1 )
 slot/6/right_enabled = true
 slot/6/right_type = 0
 slot/6/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$0
+for(let item in $1){$2}
+$3
+item"
+}
 
 [node name="flow" type="Label" parent="for"]
 margin_left = 16.0
@@ -278,10 +339,10 @@ text = "item"
 align = 2
 
 [node name="for_each" type="GraphNode" parent="."]
-margin_left = 22.0
-margin_top = 328.0
-margin_right = 188.0
-margin_bottom = 437.0
+margin_left = 1.0
+margin_top = 449.0
+margin_right = 167.0
+margin_bottom = 558.0
 title = "for_each"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -325,6 +386,14 @@ slot/6/left_color = Color( 1, 1, 1, 1 )
 slot/6/right_enabled = true
 slot/6/right_type = 0
 slot/6/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$0
+$1.forEach((item, i)=>$2)
+$3
+item
+$4
+i"
+}
 
 [node name="flow" type="Label" parent="for_each"]
 margin_left = 16.0
@@ -374,10 +443,10 @@ text = "item"
 align = 2
 
 [node name="code" type="GraphNode" parent="."]
-margin_left = 276.0
-margin_top = 330.0
-margin_right = 452.0
-margin_bottom = 424.0
+margin_left = 265.0
+margin_top = 270.0
+margin_right = 502.0
+margin_bottom = 427.0
 title = "code"
 resizable = true
 slot/0/left_enabled = true
@@ -399,14 +468,14 @@ __meta__ = {
 [node name="Label" type="Label" parent="code"]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 160.0
+margin_right = 221.0
 margin_bottom = 38.0
 
 [node name="TextEdit" type="TextEdit" parent="code"]
 margin_left = 16.0
 margin_top = 39.0
-margin_right = 160.0
-margin_bottom = 88.0
+margin_right = 221.0
+margin_bottom = 151.0
 size_flags_vertical = 3
 text = "//console.log
 //return"
@@ -414,10 +483,10 @@ highlight_current_line = true
 show_line_numbers = true
 
 [node name="Function" type="GraphNode" parent="."]
-margin_left = 25.0
-margin_top = 478.0
-margin_right = 257.0
-margin_bottom = 617.0
+margin_left = 268.0
+margin_top = 11.0
+margin_right = 500.0
+margin_bottom = 223.0
 title = "Func"
 resizable = true
 slot/0/left_enabled = true
@@ -444,6 +513,18 @@ slot/3/left_color = Color( 1, 1, 1, 1 )
 slot/3/right_enabled = false
 slot/3/right_type = 0
 slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+slot/5/left_enabled = true
+slot/5/left_type = 0
+slot/5/left_color = Color( 1, 1, 1, 1 )
+slot/5/right_enabled = false
+slot/5/right_type = 0
+slot/5/right_color = Color( 1, 1, 1, 1 )
 __meta__ = {
 "_editor_description_": "%s0"
 }
@@ -458,7 +539,7 @@ margin_bottom = 38.0
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 216.0
-margin_bottom = 107.0
+margin_bottom = 160.0
 size_flags_vertical = 3
 text = "//console.log(p0, p1, p2)"
 highlight_current_line = true
@@ -466,24 +547,284 @@ show_line_numbers = true
 
 [node name="HSeparator4" type="HSeparator" parent="Function"]
 margin_left = 16.0
-margin_top = 108.0
+margin_top = 161.0
 margin_right = 216.0
-margin_bottom = 112.0
+margin_bottom = 165.0
 
 [node name="Button" type="Button" parent="Function"]
 margin_left = 16.0
-margin_top = 113.0
+margin_top = 166.0
 margin_right = 51.0
-margin_bottom = 133.0
+margin_bottom = 186.0
 size_flags_horizontal = 0
 text = "add"
 
-[node name="as" type="GraphNode" parent="."]
-margin_left = 508.0
-margin_top = 344.0
-margin_right = 612.0
-margin_bottom = 414.0
-title = "as"
+[node name="HSeparator5" type="HSeparator" parent="Function"]
+margin_left = 16.0
+margin_top = 187.0
+margin_right = 216.0
+margin_bottom = 191.0
+
+[node name="Label2" type="Label" parent="Function"]
+margin_left = 16.0
+margin_top = 192.0
+margin_right = 216.0
+margin_bottom = 206.0
+text = "p0"
+
+[node name="is" type="GraphNode" parent="."]
+margin_left = 23.0
+margin_top = 580.0
+margin_right = 127.0
+margin_bottom = 670.0
+title = "is"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = true
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$2
+($0 instanceOf $1)"
+}
+
+[node name="value" type="Label" parent="is"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 88.0
+margin_bottom = 38.0
+text = "instance"
+
+[node name="HSeparator4" type="HSeparator" parent="is"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 88.0
+margin_bottom = 43.0
+
+[node name="class" type="Label" parent="is"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 88.0
+margin_bottom = 58.0
+text = "class"
+
+[node name="HSeparator5" type="HSeparator" parent="is"]
+margin_left = 16.0
+margin_top = 59.0
+margin_right = 88.0
+margin_bottom = 63.0
+
+[node name="class2" type="Label" parent="is"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 88.0
+margin_bottom = 78.0
+
+[node name="compare" type="GraphNode" parent="."]
+margin_left = 27.0
+margin_top = 690.0
+margin_right = 131.0
+margin_bottom = 780.0
+title = "compare"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = true
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$2
+($0 $2 $1)"
+}
+
+[node name="a" type="Label" parent="compare"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 88.0
+margin_bottom = 38.0
+text = "a"
+
+[node name="HSeparator4" type="HSeparator" parent="compare"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 88.0
+margin_bottom = 43.0
+
+[node name="b" type="Label" parent="compare"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 88.0
+margin_bottom = 58.0
+text = "b"
+
+[node name="HSeparator5" type="HSeparator" parent="compare"]
+margin_left = 16.0
+margin_top = 59.0
+margin_right = 88.0
+margin_bottom = 63.0
+
+[node name="OptionButton" type="OptionButton" parent="compare"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 88.0
+margin_bottom = 84.0
+text = "!="
+items = [ "!=", null, false, 0, null, "==", null, false, 1, null, ">=", null, false, 2, null, "<=", null, false, 3, null, ">", null, false, 4, null, "<", null, false, 5, null, "===", null, false, 6, null, "!==", null, false, 7, null ]
+selected = 0
+
+[node name="int" type="GraphNode" parent="."]
+margin_left = 30.0
+margin_top = 886.0
+margin_right = 120.0
+margin_bottom = 948.0
+title = "int"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_editor_description_": "%s0"
+}
+
+[node name="SpinBox" type="SpinBox" parent="int"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 90.0
+margin_bottom = 48.0
+
+[node name="operator" type="GraphNode" parent="."]
+margin_left = 156.0
+margin_top = 693.0
+margin_right = 260.0
+margin_bottom = 783.0
+title = "operator"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = true
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$2
+($0 $2 $1)"
+}
+
+[node name="a" type="Label" parent="operator"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 88.0
+margin_bottom = 38.0
+text = "a"
+
+[node name="HSeparator4" type="HSeparator" parent="operator"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 88.0
+margin_bottom = 43.0
+
+[node name="b" type="Label" parent="operator"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 88.0
+margin_bottom = 58.0
+text = "b"
+
+[node name="HSeparator5" type="HSeparator" parent="operator"]
+margin_left = 16.0
+margin_top = 59.0
+margin_right = 88.0
+margin_bottom = 63.0
+
+[node name="sel" type="OptionButton" parent="operator"]
+margin_left = 16.0
+margin_top = 64.0
+margin_right = 88.0
+margin_bottom = 84.0
+text = "&&"
+items = [ "&&", null, false, 0, null, "||", null, false, 5, null, "&", null, false, 6, null, "|", null, false, 7, null, "<<", null, false, 4, null, ">>", null, false, 5, null ]
+selected = 0
+
+[node name="not" type="GraphNode" parent="."]
+margin_left = 159.0
+margin_top = 588.0
+margin_right = 263.0
+margin_bottom = 662.0
+title = "not"
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
@@ -502,70 +843,105 @@ slot/2/left_color = Color( 1, 1, 1, 1 )
 slot/2/right_enabled = true
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"custom_editor_meta": "$1
+!$0"
+}
 
-[node name="value" type="Label" parent="as"]
+[node name="value" type="Label" parent="not"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 88.0
 margin_bottom = 38.0
 text = "value"
 
-[node name="HSeparator4" type="HSeparator" parent="as"]
+[node name="HSeparator5" type="HSeparator" parent="not"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 88.0
 margin_bottom = 43.0
 
-[node name="OptionButton" type="OptionButton" parent="as"]
-margin_left = 16.0
-margin_top = 44.0
-margin_right = 88.0
-margin_bottom = 64.0
-text = "Object"
-items = [ "Object", null, false, 0, null ]
-selected = 0
-
-[node name="is" type="GraphNode" parent="."]
-margin_left = 512.0
-margin_top = 444.0
-margin_right = 616.0
-margin_bottom = 514.0
-title = "is"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color( 0.611765, 0.913725, 0.937255, 1 )
-slot/0/right_enabled = false
-slot/0/right_type = 0
-slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color( 1, 1, 1, 1 )
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color( 1, 1, 1, 1 )
-slot/2/left_enabled = true
-slot/2/left_type = 0
-slot/2/left_color = Color( 1, 1, 1, 1 )
-slot/2/right_enabled = true
-slot/2/right_type = 0
-slot/2/right_color = Color( 1, 1, 1, 1 )
-
-[node name="value" type="Label" parent="is"]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 88.0
-margin_bottom = 38.0
-text = "value"
-
-[node name="HSeparator4" type="HSeparator" parent="is"]
-margin_left = 16.0
-margin_top = 39.0
-margin_right = 88.0
-margin_bottom = 43.0
-
-[node name="class" type="Label" parent="is"]
+[node name="class2" type="Label" parent="not"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 88.0
 margin_bottom = 58.0
-text = "class"
+
+[node name="ports" type="Panel" parent="."]
+margin_left = -206.0
+margin_top = 1.0
+margin_right = -71.0
+margin_bottom = 543.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ports"]
+margin_right = 96.0
+margin_bottom = 50.0
+
+[node name="flow" type="Label" parent="ports/VBoxContainer"]
+margin_right = 105.0
+margin_bottom = 14.0
+__meta__ = {
+"custom_editor_meta": ""
+}
+
+[node name="output" type="Label" parent="ports/VBoxContainer"]
+margin_top = 18.0
+margin_right = 105.0
+margin_bottom = 32.0
+text = "common_output"
+__meta__ = {
+"custom_editor_meta": ""
+}
+
+[node name="items" type="OptionButton" parent="ports/VBoxContainer"]
+margin_top = 36.0
+margin_right = 105.0
+margin_bottom = 56.0
+text = "!="
+items = [ "!=", null, false, 0, null, "==", null, false, 1, null, ">=", null, false, 2, null, "<=", null, false, 3, null, ">", null, false, 4, null, "<", null, false, 5, null, "===", null, false, 6, null, "!==", null, false, 7, null ]
+selected = 0
+
+[node name="input" type="Label" parent="ports/VBoxContainer"]
+margin_top = 60.0
+margin_right = 105.0
+margin_bottom = 74.0
+text = "common_input"
+__meta__ = {
+"custom_editor_meta": ""
+}
+
+[node name="colorer" type="ColorPickerButton" parent="ports/VBoxContainer"]
+margin_top = 78.0
+margin_right = 105.0
+margin_bottom = 98.0
+color = Color( 0.843137, 0.843137, 0.843137, 1 )
+
+[node name="counter" type="SpinBox" parent="ports/VBoxContainer"]
+margin_top = 102.0
+margin_right = 105.0
+margin_bottom = 126.0
+
+[node name="string" type="LineEdit" parent="ports/VBoxContainer"]
+margin_top = 130.0
+margin_right = 105.0
+margin_bottom = 154.0
+text = "edit_input"
+
+[node name="add" type="Button" parent="ports/VBoxContainer"]
+margin_top = 158.0
+margin_right = 35.0
+margin_bottom = 178.0
+size_flags_horizontal = 0
+text = "add"
+
+[node name="sep" type="HSeparator" parent="ports/VBoxContainer"]
+margin_top = 182.0
+margin_right = 105.0
+margin_bottom = 186.0
+
+[node name="block" type="TextEdit" parent="ports/VBoxContainer"]
+margin_top = 190.0
+margin_right = 105.0
+margin_bottom = 190.0
+text = "code"
+show_line_numbers = true

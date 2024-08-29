@@ -1,0 +1,6 @@
+[gd_scene format=2]
+
+[node name="custom_meta" type="TextEdit"]
+margin_right = 290.0
+margin_bottom = 497.0
+text = "#name:value"
