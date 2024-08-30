@@ -8,6 +8,7 @@ var current: GraphNode
 var current_edit: GraphEdit
 var debugs: Array
 var inputMaps:Dictionary =  Dictionary()
+var yaml = preload("res://addons/godot-yaml/gdyaml.gdns").new()
 
 signal debug(mes)
 signal code(code)

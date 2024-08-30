@@ -3,14 +3,18 @@ extends Node
 export(Array, String) var envs:Array
 export(String) var path:String
 
+
 var search:Tree
 var contextDic: Dictionary = Dictionary()
+var basic: Dictionary = Dictionary()
+onready var cfile:File = File.new()
+onready var cfile_ok:int = cfile.open("res://env/javascript/main.yaml", File.READ)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print_debug(envs)
-
+	_prepareCoreCtx()
 	# var partern = r"window\[`tdoc-\$\{performance\.now()\}`\]"
 	var tar:RegEx = RegEx.new()
 	tar.compile("(?i)window\\[`tdoc-\\$\\{performance\\.now\\(\\)\\}`\\]\\s*=\\s*")
@@ -100,46 +104,94 @@ func _getInterface(dic:Dictionary, targets:Array = []) -> Dictionary:
 			
 	return infs
 
-func _makeGraphNode(obj:Dictionary) -> GraphNode:
-	var node:GraphNode = GraphNode.new()
-	var sep:HSeparator = HSeparator.new()
-	node.title = obj.parent + '\n.' + obj.name
-	var goon:Label = Label.new()
-	goon.text = " "
-	goon.align = Label.ALIGN_CENTER
-	node.add_child(goon)
-	node.add_child(sep)
-	goon.set_meta("type", "flow")
-	# param
-	for p in obj.params:
-		var p0:Label = Label.new()
-		p0.text = p.name
-		p0.align = Label.ALIGN_LEFT
-		p0.set_meta("type", "param")
-		node.add_child(p0)
-		node.add_child(sep.duplicate())
-		pass
-	# return 
-	var out:Label = Label.new()
-	out.text = obj.output_info.type
-	out.align = Label.ALIGN_RIGHT
-	node.add_child(out)
-	out.set_meta("type", "return")
-	var children:Array = node.get_children()
-	for item in children:
-		if(!item.has_meta("type")): continue
-		var tt = item.get_meta("type")
-		var i:int = item.get_index()
-		match tt:
-			"flow":
-				node.set_slot(i, true, 1, Color(0x9ce9ef), true, 1, Color(0x9ce9ef))
-			"return":
-				node.set_slot(i, false, 0, Color(0x9ce9ef), true, 0, Color(0x9ce9ef))
-			"param":
-				node.set_slot(i, true, 0, Color(0x9ce9ef), false, 0, Color(0x9ce9ef))
-		pass
+# func _makeGraphNode(obj:Dictionary) -> GraphNode:
+# 	var node:GraphNode = GraphNode.new()
+# 	var sep:HSeparator = HSeparator.new()
+# 	node.title = obj.parent + '\n.' + obj.name
+# 	var goon:Label = Label.new()
+# 	goon.text = " "
+# 	goon.align = Label.ALIGN_CENTER
+# 	node.add_child(goon)
+# 	node.add_child(sep)
+# 	goon.set_meta("type", "flow")
+# 	# param
+# 	for p in obj.params:
+# 		var p0:Label = Label.new()
+# 		p0.text = p.name
+# 		p0.align = Label.ALIGN_LEFT
+# 		p0.set_meta("type", "param")
+# 		node.add_child(p0)
+# 		node.add_child(sep.duplicate())
+# 		pass
+# 	# return 
+# 	var out:Label = Label.new()
+# 	out.text = obj.output_info.type
+# 	out.align = Label.ALIGN_RIGHT
+# 	node.add_child(out)
+# 	out.set_meta("type", "return")
+# 	var children:Array = node.get_children()
+# 	for item in children:
+# 		if(!item.has_meta("type")): continue
+# 		var tt = item.get_meta("type")
+# 		var i:int = item.get_index()
+# 		match tt:
+# 			"flow":
+# 				node.set_slot(i, true, 1, Color(0x9ce9ef), true, 1, Color(0x9ce9ef))
+# 			"return":
+# 				node.set_slot(i, false, 0, Color(0x9ce9ef), true, 0, Color(0x9ce9ef))
+# 			"param":
+# 				node.set_slot(i, true, 0, Color(0x9ce9ef), false, 0, Color(0x9ce9ef))
+# 		pass
 	
-	return node
+# 	return node
+
+# func _makeGraphNode(obj:Dictionary, name:String="test") -> GraphNode:
+# 	var node:GraphNode = GraphNode.new()
+# 	var sep:HSeparator = HSeparator.new()
+# 	node.title = name
+	
+
+	
+# 	return node
+
+# func merge_basic(re:RegEx, ctx:Dictionary, default_ctx:Dictionary):
+# 	for key in ctx:
+# 		if(re.search(key)):
+# 			continue
+# 		var item:Dictionary = ctx[key]
+# 		_merge_(item, default_ctx)
+# 		pass
+
+func _merge_item(ctx:Dictionary, default_ctx:Dictionary):
+	for key in ctx:
+		var item = ctx[key]
+		for key1 in default_ctx:
+			var t_ctx = default_ctx[key1]
+			var find = key.find(key1) 
+			# print_debug(find, item, key1, key)
+			if(find==0):
+				item.merge(t_ctx)
+				print_debug(item)
+				break
+			pass
+		# print_debug(item)
+		pass
+
+func _prepareCoreCtx():
+	var content:String = cfile.get_as_text()
+	basic = PGL.yaml.parse(content).result
+	# print_debug(basic)
+	var default_ctx = basic.__default
+	var re:RegEx = RegEx.new()
+	re.compile("^__")
+	var main = basic.main
+	for key in main:
+		var item = main[key]
+		_merge_item(item, default_ctx)
+		pass
+	# merge_basic(re, basic, default_ctx)
+	contextDic.merge(basic)	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

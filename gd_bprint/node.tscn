@@ -2,7 +2,91 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="entry" type="GraphNode" parent="."]
+[node name="ports" type="VBoxContainer" parent="."]
+margin_left = -206.0
+margin_top = 1.0
+margin_right = -110.0
+margin_bottom = 155.0
+
+[node name="graph" type="GraphNode" parent="ports"]
+margin_right = 96.0
+margin_bottom = 30.0
+
+[node name="label" type="Label" parent="ports"]
+margin_top = 34.0
+margin_right = 96.0
+margin_bottom = 48.0
+__meta__ = {
+"custom_editor_meta": ""
+}
+
+[node name="items" type="OptionButton" parent="ports"]
+margin_top = 52.0
+margin_right = 96.0
+margin_bottom = 72.0
+text = "!="
+items = [ "!=", null, false, 0, null, "==", null, false, 1, null, ">=", null, false, 2, null, "<=", null, false, 3, null, ">", null, false, 4, null, "<", null, false, 5, null, "===", null, false, 6, null, "!==", null, false, 7, null ]
+selected = 0
+
+[node name="colorer" type="ColorPickerButton" parent="ports"]
+margin_top = 76.0
+margin_right = 96.0
+margin_bottom = 96.0
+color = Color( 0.843137, 0.843137, 0.843137, 1 )
+
+[node name="counter" type="SpinBox" parent="ports"]
+margin_top = 100.0
+margin_right = 96.0
+margin_bottom = 124.0
+
+[node name="string" type="LineEdit" parent="ports"]
+margin_top = 128.0
+margin_right = 96.0
+margin_bottom = 152.0
+text = "edit_input"
+
+[node name="add" type="Button" parent="ports"]
+margin_top = 156.0
+margin_right = 35.0
+margin_bottom = 176.0
+size_flags_horizontal = 0
+text = "add"
+
+[node name="sep" type="HSeparator" parent="ports"]
+margin_top = 180.0
+margin_right = 96.0
+margin_bottom = 184.0
+
+[node name="block" type="TextEdit" parent="ports"]
+margin_top = 188.0
+margin_right = 96.0
+margin_bottom = 188.0
+text = "code"
+show_line_numbers = true
+
+[node name="graph2" type="GraphNode" parent="ports"]
+margin_top = 192.0
+margin_right = 96.0
+margin_bottom = 226.0
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+
+[node name="sep" type="HSeparator" parent="ports/graph2"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 80.0
+margin_bottom = 28.0
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="entry" type="GraphNode" parent="Panel"]
 margin_left = 29.0
 margin_top = 9.0
 margin_right = 118.0
@@ -23,17 +107,20 @@ slot/1/right_color = Color( 1, 1, 1, 1 )
 __meta__ = {
 "_editor_description_": "#entry:true",
 "custom_editor_meta": "#entry
-$0
+[flow]
+type=1
+out=let $i0...;\\n
+[add]
 "
 }
 
-[node name="body" type="Label" parent="entry"]
+[node name="body" type="Label" parent="Panel/entry"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 73.0
 margin_bottom = 38.0
 
-[node name="Button" type="Button" parent="entry"]
+[node name="Button" type="Button" parent="Panel/entry"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 51.0
@@ -41,11 +128,11 @@ margin_bottom = 59.0
 size_flags_horizontal = 0
 text = "add"
 
-[node name="return" type="GraphNode" parent="."]
+[node name="return" type="GraphNode" parent="Panel"]
 margin_left = 30.0
 margin_top = 101.0
 margin_right = 122.0
-margin_bottom = 161.0
+margin_bottom = 165.0
 title = "return"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -66,30 +153,33 @@ slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
 __meta__ = {
-"custom_editor_meta": "$0
-return $1"
+"custom_editor_meta": "[flow]
+type=0
+in=return $i0;
+[[i]]
+[input]"
 }
 
-[node name="value" type="Label" parent="return"]
+[node name="value" type="Label" parent="Panel/return"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 76.0
 margin_bottom = 38.0
 
-[node name="HSeparator4" type="HSeparator" parent="return"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/return"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 76.0
 margin_bottom = 43.0
 
-[node name="value2" type="Label" parent="return"]
+[node name="value2" type="Label" parent="Panel/return"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 76.0
 margin_bottom = 58.0
 text = "value"
 
-[node name="color" type="GraphNode" parent="."]
+[node name="color" type="GraphNode" parent="Panel"]
 margin_left = 577.0
 margin_top = 32.0
 margin_right = 670.0
@@ -102,14 +192,14 @@ slot/0/right_enabled = true
 slot/0/right_type = 0
 slot/0/right_color = Color( 0.243137, 0.858824, 0.788235, 1 )
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="color"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/color"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 77.0
 margin_bottom = 44.0
 color = Color( 0.843137, 0.843137, 0.843137, 1 )
 
-[node name="if" type="GraphNode" parent="."]
+[node name="if" type="GraphNode" parent="Panel"]
 margin_left = -3.0
 margin_top = 192.0
 margin_right = 163.0
@@ -158,36 +248,37 @@ slot/6/right_enabled = true
 slot/6/right_type = 0
 slot/6/right_color = Color( 1, 1, 1, 1 )
 __meta__ = {
-"custom_editor_meta": "$0
-if($1){$2}else{$3}"
+"custom_editor_meta": "[flow]
+type=2
+in="
 }
 
-[node name="flow" type="Label" parent="if"]
+[node name="flow" type="Label" parent="Panel/if"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 150.0
 margin_bottom = 38.0
 
-[node name="HSeparator4" type="HSeparator" parent="if"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/if"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 150.0
 margin_bottom = 43.0
 
-[node name="b_con" type="Label" parent="if"]
+[node name="b_con" type="Label" parent="Panel/if"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 150.0
 margin_bottom = 58.0
 text = "b_con"
 
-[node name="HSeparator" type="HSeparator" parent="if"]
+[node name="HSeparator" type="HSeparator" parent="Panel/if"]
 margin_left = 16.0
 margin_top = 59.0
 margin_right = 150.0
 margin_bottom = 63.0
 
-[node name="true" type="Label" parent="if"]
+[node name="true" type="Label" parent="Panel/if"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 150.0
@@ -195,13 +286,13 @@ margin_bottom = 78.0
 text = "true"
 align = 2
 
-[node name="HSeparator2" type="HSeparator" parent="if"]
+[node name="HSeparator2" type="HSeparator" parent="Panel/if"]
 margin_left = 16.0
 margin_top = 79.0
 margin_right = 150.0
 margin_bottom = 83.0
 
-[node name="false" type="Label" parent="if"]
+[node name="false" type="Label" parent="Panel/if"]
 margin_left = 16.0
 margin_top = 84.0
 margin_right = 150.0
@@ -209,7 +300,7 @@ margin_bottom = 98.0
 text = "false"
 align = 2
 
-[node name="let" type="GraphNode" parent="."]
+[node name="let" type="GraphNode" parent="Panel"]
 margin_left = 33.0
 margin_top = 804.0
 margin_right = 123.0
@@ -223,11 +314,12 @@ slot/0/right_type = 0
 slot/0/right_color = Color( 1, 1, 1, 1 )
 __meta__ = {
 "_editor_description_": "%s0",
-"custom_editor_meta": "$0
-$0"
+"custom_editor_meta": "#counter:in
+$i0 = 
+"
 }
 
-[node name="OptionButton" type="OptionButton" parent="let"]
+[node name="OptionButton" type="OptionButton" parent="Panel/let"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 74.0
@@ -236,7 +328,7 @@ text = "var0"
 items = [ "var0", null, false, 7, null ]
 selected = 0
 
-[node name="for" type="GraphNode" parent="."]
+[node name="for" type="GraphNode" parent="Panel"]
 margin_left = 1.0
 margin_top = 319.0
 margin_right = 167.0
@@ -291,32 +383,36 @@ $3
 item"
 }
 
-[node name="flow" type="Label" parent="for"]
+[node name="flow" type="Label" parent="Panel/for"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 150.0
 margin_bottom = 38.0
+__meta__ = {
+"custom_editor_meta": "
+"
+}
 
-[node name="HSeparator4" type="HSeparator" parent="for"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/for"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 150.0
 margin_bottom = 43.0
 
-[node name="b_con" type="Label" parent="for"]
+[node name="b_con" type="Label" parent="Panel/for"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 150.0
 margin_bottom = 58.0
 text = "object"
 
-[node name="HSeparator" type="HSeparator" parent="for"]
+[node name="HSeparator" type="HSeparator" parent="Panel/for"]
 margin_left = 16.0
 margin_top = 59.0
 margin_right = 150.0
 margin_bottom = 63.0
 
-[node name="true" type="Label" parent="for"]
+[node name="true" type="Label" parent="Panel/for"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 150.0
@@ -324,13 +420,13 @@ margin_bottom = 78.0
 text = "body"
 align = 2
 
-[node name="HSeparator2" type="HSeparator" parent="for"]
+[node name="HSeparator2" type="HSeparator" parent="Panel/for"]
 margin_left = 16.0
 margin_top = 79.0
 margin_right = 150.0
 margin_bottom = 83.0
 
-[node name="false" type="Label" parent="for"]
+[node name="false" type="Label" parent="Panel/for"]
 margin_left = 16.0
 margin_top = 84.0
 margin_right = 150.0
@@ -338,7 +434,7 @@ margin_bottom = 98.0
 text = "item"
 align = 2
 
-[node name="for_each" type="GraphNode" parent="."]
+[node name="for_each" type="GraphNode" parent="Panel"]
 margin_left = 1.0
 margin_top = 449.0
 margin_right = 167.0
@@ -395,32 +491,32 @@ $4
 i"
 }
 
-[node name="flow" type="Label" parent="for_each"]
+[node name="flow" type="Label" parent="Panel/for_each"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 150.0
 margin_bottom = 38.0
 
-[node name="HSeparator4" type="HSeparator" parent="for_each"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/for_each"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 150.0
 margin_bottom = 43.0
 
-[node name="b_con" type="Label" parent="for_each"]
+[node name="b_con" type="Label" parent="Panel/for_each"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 150.0
 margin_bottom = 58.0
 text = "array"
 
-[node name="HSeparator" type="HSeparator" parent="for_each"]
+[node name="HSeparator" type="HSeparator" parent="Panel/for_each"]
 margin_left = 16.0
 margin_top = 59.0
 margin_right = 150.0
 margin_bottom = 63.0
 
-[node name="true" type="Label" parent="for_each"]
+[node name="true" type="Label" parent="Panel/for_each"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 150.0
@@ -428,13 +524,13 @@ margin_bottom = 78.0
 text = "body"
 align = 2
 
-[node name="HSeparator2" type="HSeparator" parent="for_each"]
+[node name="HSeparator2" type="HSeparator" parent="Panel/for_each"]
 margin_left = 16.0
 margin_top = 79.0
 margin_right = 150.0
 margin_bottom = 83.0
 
-[node name="false" type="Label" parent="for_each"]
+[node name="false" type="Label" parent="Panel/for_each"]
 margin_left = 16.0
 margin_top = 84.0
 margin_right = 150.0
@@ -442,7 +538,7 @@ margin_bottom = 98.0
 text = "item"
 align = 2
 
-[node name="code" type="GraphNode" parent="."]
+[node name="code" type="GraphNode" parent="Panel"]
 margin_left = 265.0
 margin_top = 270.0
 margin_right = 502.0
@@ -465,13 +561,13 @@ __meta__ = {
 "_editor_description_": "%s0"
 }
 
-[node name="Label" type="Label" parent="code"]
+[node name="Label" type="Label" parent="Panel/code"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 221.0
 margin_bottom = 38.0
 
-[node name="TextEdit" type="TextEdit" parent="code"]
+[node name="TextEdit" type="TextEdit" parent="Panel/code"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 221.0
@@ -482,7 +578,7 @@ text = "//console.log
 highlight_current_line = true
 show_line_numbers = true
 
-[node name="Function" type="GraphNode" parent="."]
+[node name="Function" type="GraphNode" parent="Panel"]
 margin_left = 268.0
 margin_top = 11.0
 margin_right = 500.0
@@ -529,13 +625,13 @@ __meta__ = {
 "_editor_description_": "%s0"
 }
 
-[node name="Label" type="Label" parent="Function"]
+[node name="Label" type="Label" parent="Panel/Function"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 216.0
 margin_bottom = 38.0
 
-[node name="TextEdit" type="TextEdit" parent="Function"]
+[node name="TextEdit" type="TextEdit" parent="Panel/Function"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 216.0
@@ -545,13 +641,13 @@ text = "//console.log(p0, p1, p2)"
 highlight_current_line = true
 show_line_numbers = true
 
-[node name="HSeparator4" type="HSeparator" parent="Function"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/Function"]
 margin_left = 16.0
 margin_top = 161.0
 margin_right = 216.0
 margin_bottom = 165.0
 
-[node name="Button" type="Button" parent="Function"]
+[node name="Button" type="Button" parent="Panel/Function"]
 margin_left = 16.0
 margin_top = 166.0
 margin_right = 51.0
@@ -559,20 +655,20 @@ margin_bottom = 186.0
 size_flags_horizontal = 0
 text = "add"
 
-[node name="HSeparator5" type="HSeparator" parent="Function"]
+[node name="HSeparator5" type="HSeparator" parent="Panel/Function"]
 margin_left = 16.0
 margin_top = 187.0
 margin_right = 216.0
 margin_bottom = 191.0
 
-[node name="Label2" type="Label" parent="Function"]
+[node name="Label2" type="Label" parent="Panel/Function"]
 margin_left = 16.0
 margin_top = 192.0
 margin_right = 216.0
 margin_bottom = 206.0
 text = "p0"
 
-[node name="is" type="GraphNode" parent="."]
+[node name="is" type="GraphNode" parent="Panel"]
 margin_left = 23.0
 margin_top = 580.0
 margin_right = 127.0
@@ -613,39 +709,39 @@ __meta__ = {
 ($0 instanceOf $1)"
 }
 
-[node name="value" type="Label" parent="is"]
+[node name="value" type="Label" parent="Panel/is"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 88.0
 margin_bottom = 38.0
 text = "instance"
 
-[node name="HSeparator4" type="HSeparator" parent="is"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/is"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 88.0
 margin_bottom = 43.0
 
-[node name="class" type="Label" parent="is"]
+[node name="class" type="Label" parent="Panel/is"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 88.0
 margin_bottom = 58.0
 text = "class"
 
-[node name="HSeparator5" type="HSeparator" parent="is"]
+[node name="HSeparator5" type="HSeparator" parent="Panel/is"]
 margin_left = 16.0
 margin_top = 59.0
 margin_right = 88.0
 margin_bottom = 63.0
 
-[node name="class2" type="Label" parent="is"]
+[node name="class2" type="Label" parent="Panel/is"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 88.0
 margin_bottom = 78.0
 
-[node name="compare" type="GraphNode" parent="."]
+[node name="compare" type="GraphNode" parent="Panel"]
 margin_left = 27.0
 margin_top = 690.0
 margin_right = 131.0
@@ -686,33 +782,33 @@ __meta__ = {
 ($0 $2 $1)"
 }
 
-[node name="a" type="Label" parent="compare"]
+[node name="a" type="Label" parent="Panel/compare"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 88.0
 margin_bottom = 38.0
 text = "a"
 
-[node name="HSeparator4" type="HSeparator" parent="compare"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/compare"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 88.0
 margin_bottom = 43.0
 
-[node name="b" type="Label" parent="compare"]
+[node name="b" type="Label" parent="Panel/compare"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 88.0
 margin_bottom = 58.0
 text = "b"
 
-[node name="HSeparator5" type="HSeparator" parent="compare"]
+[node name="HSeparator5" type="HSeparator" parent="Panel/compare"]
 margin_left = 16.0
 margin_top = 59.0
 margin_right = 88.0
 margin_bottom = 63.0
 
-[node name="OptionButton" type="OptionButton" parent="compare"]
+[node name="OptionButton" type="OptionButton" parent="Panel/compare"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 88.0
@@ -721,10 +817,10 @@ text = "!="
 items = [ "!=", null, false, 0, null, "==", null, false, 1, null, ">=", null, false, 2, null, "<=", null, false, 3, null, ">", null, false, 4, null, "<", null, false, 5, null, "===", null, false, 6, null, "!==", null, false, 7, null ]
 selected = 0
 
-[node name="int" type="GraphNode" parent="."]
+[node name="int" type="GraphNode" parent="Panel"]
 margin_left = 30.0
 margin_top = 886.0
-margin_right = 120.0
+margin_right = 136.0
 margin_bottom = 948.0
 title = "int"
 slot/0/left_enabled = false
@@ -737,13 +833,16 @@ __meta__ = {
 "_editor_description_": "%s0"
 }
 
-[node name="SpinBox" type="SpinBox" parent="int"]
+[node name="SpinBox" type="SpinBox" parent="Panel/int"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 90.0
 margin_bottom = 48.0
+value = 1.0
+allow_greater = true
+allow_lesser = true
 
-[node name="operator" type="GraphNode" parent="."]
+[node name="operator" type="GraphNode" parent="Panel"]
 margin_left = 156.0
 margin_top = 693.0
 margin_right = 260.0
@@ -784,33 +883,33 @@ __meta__ = {
 ($0 $2 $1)"
 }
 
-[node name="a" type="Label" parent="operator"]
+[node name="a" type="Label" parent="Panel/operator"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 88.0
 margin_bottom = 38.0
 text = "a"
 
-[node name="HSeparator4" type="HSeparator" parent="operator"]
+[node name="HSeparator4" type="HSeparator" parent="Panel/operator"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 88.0
 margin_bottom = 43.0
 
-[node name="b" type="Label" parent="operator"]
+[node name="b" type="Label" parent="Panel/operator"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 88.0
 margin_bottom = 58.0
 text = "b"
 
-[node name="HSeparator5" type="HSeparator" parent="operator"]
+[node name="HSeparator5" type="HSeparator" parent="Panel/operator"]
 margin_left = 16.0
 margin_top = 59.0
 margin_right = 88.0
 margin_bottom = 63.0
 
-[node name="sel" type="OptionButton" parent="operator"]
+[node name="sel" type="OptionButton" parent="Panel/operator"]
 margin_left = 16.0
 margin_top = 64.0
 margin_right = 88.0
@@ -819,7 +918,7 @@ text = "&&"
 items = [ "&&", null, false, 0, null, "||", null, false, 5, null, "&", null, false, 6, null, "|", null, false, 7, null, "<<", null, false, 4, null, ">>", null, false, 5, null ]
 selected = 0
 
-[node name="not" type="GraphNode" parent="."]
+[node name="not" type="GraphNode" parent="Panel"]
 margin_left = 159.0
 margin_top = 588.0
 margin_right = 263.0
@@ -848,100 +947,21 @@ __meta__ = {
 !$0"
 }
 
-[node name="value" type="Label" parent="not"]
+[node name="value" type="Label" parent="Panel/not"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 88.0
 margin_bottom = 38.0
 text = "value"
 
-[node name="HSeparator5" type="HSeparator" parent="not"]
+[node name="HSeparator5" type="HSeparator" parent="Panel/not"]
 margin_left = 16.0
 margin_top = 39.0
 margin_right = 88.0
 margin_bottom = 43.0
 
-[node name="class2" type="Label" parent="not"]
+[node name="class2" type="Label" parent="Panel/not"]
 margin_left = 16.0
 margin_top = 44.0
 margin_right = 88.0
 margin_bottom = 58.0
-
-[node name="ports" type="Panel" parent="."]
-margin_left = -206.0
-margin_top = 1.0
-margin_right = -71.0
-margin_bottom = 543.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ports"]
-margin_right = 96.0
-margin_bottom = 50.0
-
-[node name="flow" type="Label" parent="ports/VBoxContainer"]
-margin_right = 105.0
-margin_bottom = 14.0
-__meta__ = {
-"custom_editor_meta": ""
-}
-
-[node name="output" type="Label" parent="ports/VBoxContainer"]
-margin_top = 18.0
-margin_right = 105.0
-margin_bottom = 32.0
-text = "common_output"
-__meta__ = {
-"custom_editor_meta": ""
-}
-
-[node name="items" type="OptionButton" parent="ports/VBoxContainer"]
-margin_top = 36.0
-margin_right = 105.0
-margin_bottom = 56.0
-text = "!="
-items = [ "!=", null, false, 0, null, "==", null, false, 1, null, ">=", null, false, 2, null, "<=", null, false, 3, null, ">", null, false, 4, null, "<", null, false, 5, null, "===", null, false, 6, null, "!==", null, false, 7, null ]
-selected = 0
-
-[node name="input" type="Label" parent="ports/VBoxContainer"]
-margin_top = 60.0
-margin_right = 105.0
-margin_bottom = 74.0
-text = "common_input"
-__meta__ = {
-"custom_editor_meta": ""
-}
-
-[node name="colorer" type="ColorPickerButton" parent="ports/VBoxContainer"]
-margin_top = 78.0
-margin_right = 105.0
-margin_bottom = 98.0
-color = Color( 0.843137, 0.843137, 0.843137, 1 )
-
-[node name="counter" type="SpinBox" parent="ports/VBoxContainer"]
-margin_top = 102.0
-margin_right = 105.0
-margin_bottom = 126.0
-
-[node name="string" type="LineEdit" parent="ports/VBoxContainer"]
-margin_top = 130.0
-margin_right = 105.0
-margin_bottom = 154.0
-text = "edit_input"
-
-[node name="add" type="Button" parent="ports/VBoxContainer"]
-margin_top = 158.0
-margin_right = 35.0
-margin_bottom = 178.0
-size_flags_horizontal = 0
-text = "add"
-
-[node name="sep" type="HSeparator" parent="ports/VBoxContainer"]
-margin_top = 182.0
-margin_right = 105.0
-margin_bottom = 186.0
-
-[node name="block" type="TextEdit" parent="ports/VBoxContainer"]
-margin_top = 190.0
-margin_right = 105.0
-margin_bottom = 190.0
-text = "code"
-show_line_numbers = true

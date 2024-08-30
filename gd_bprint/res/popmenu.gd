@@ -90,7 +90,7 @@ func _on_Tree_item_activated():
 	print_debug(item)
 	var context:Dictionary = item.get_meta("context")
 	if(context):
-		var node:GraphNode = PackedEnv._makeGraphNode(context)
-		emit_signal("node_created", node)
+		# var node:GraphNode = PackedEnv._makeGraphNode(context)
+		emit_signal("node_created", context, item)
 	# print_debug()
 	pass # Replace with function body.

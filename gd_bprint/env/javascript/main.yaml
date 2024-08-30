@@ -1,0 +1,100 @@
+__invalid:
+  replacer: "undefined"
+
+__default:
+  f_:
+    flow: 2
+    slot: 2
+    type: label
+  i_:
+    flow: 0
+    slot: 0 
+    type: label
+  o_:
+    flow: 1
+    slot: 1 
+    type: label
+  btn_:
+    flow: 3
+    slot: 3
+    type: items
+
+main:
+  if:
+    f_:
+      ctx: "if($i_con){$i_true}else{$i_false};\n"
+    i_con:
+      u_source: con
+    i_true: # 节点流中视为待输入端(左端)
+      slot: 1 # 但是端口作为输出端(开放右端)
+      u_source: "true"
+    i_false:
+      slot: 1
+      u_source: "false"
+  
+  for_in:
+    f_:
+      ctx: "for(let item in $i_object){$i_body};\n"
+    i_object:
+      u_source: "obj"
+    i_body:
+      slot: 1
+      u_source: "body"
+    o_item:
+      ctx: "item"
+      u_source: "item"
+
+  for_each:
+    f_:
+      ctx: "$i_arr.forEach((item, i)=>{$i_body});\n"
+    i_arr:
+      u_source: "arr"
+    i_body:
+      slot: 1
+      u_source: "body"
+    o_item:
+      ctx: "item"
+      u_source: "item"
+    o_i:
+      ctx: "i"
+      u_source: "i" 
+  
+  int:
+    o_count:
+      type: "counter"
+      ctx: "$o_count"
+  
+  compare:
+    i_a:
+      u_source: "a"
+    o_op:
+      type: items
+      u_source: [">=", "<=", ">", "<", "==", "!=", "===", "!=="]
+      ctx: "$i_a $o_op $i_b"
+    i_b:
+      u_source: "b"
+  
+  not:
+    f_:
+      u_source: "a"
+      ctx: "!($f_)"
+  
+  set_local:
+    f_:
+      ctx: "$i_local = $i_setter"
+    btn_local:
+      type: "items"
+      u_source: []
+    i_setter:
+      u_source: "setter"
+
+  return:
+    f_:
+      flow: 0
+      ctx: "return ($i_value);"
+    i_value:
+      u_source: "value"
+  
+  _func:
+    f_:
+      ctx: "$i_this.@name(...$i_)"

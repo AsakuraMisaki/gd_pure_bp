@@ -5,11 +5,11 @@ export(Script) var res_builder
 var selects:Array = Array()
 var caches:Dictionary = Dictionary()
 
-var textt:String = "#slot:0"
+# var textt:String = "#slot:0"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	JSON.parse(textt)
+	# JSON.parse(textt)
 	pass 
 
 func _process(delta):

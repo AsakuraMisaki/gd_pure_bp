@@ -48,19 +48,60 @@ func _ready():
 	popmenu.connect("node_created", self, "on_popmenu_node_created")
 	run_btn.connect("button_down", self, "run")
 	save_btn.connect("button_down", self, "save")
-	_readyBasic()
+	# _readyBasic()
 	pass # Replace with function body.
 
-func on_popmenu_node_created(node:GraphNode):
+# func on_popmenu_node_created(node:GraphNode):
+# 	var vp:Viewport = get_viewport()
+# 	var point:Vector2 = vp.get_mouse_position()
+# 	node.set_offset(point)
+# 	editor.add_child(node)
+# 	var size:Vector2 = node.get_rect().size
+# 	print_debug(size)
+# 	node.set_size(size * Vector2(1, 1))
+# 	self.remove_child(popmenu)
+# 	pass
+
+func _create_ports(name:String)->Node:
+	var port:Control = basic.get_node("ports/"+name)
+	return port.duplicate()
+
+func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
+	print_debug(ctx)
+	var name:String = item.get_text(0)
+	var node:GraphNode = _create_ports("graph")
+	# var basic_ctx = PackedEnv.basic
+	for key in ctx:
+		var item1 = ctx[key]
+		print_debug(item1)
+		var path = item1.type
+		var sid:int = item1.slot
+		var slot:Control = _create_ports(path)
+		if(item1.has("u_source")):
+			var u_source = item1.u_source
+			process_u_source(slot, u_source, sid)
+		var sep = _create_ports("sep")
+		node.add_child(slot)
+		node.set_slot(slot.get_index(), (sid == 0 || sid == 2), 0, 0xffffff, (sid == 1 || sid == 2 ), 0, 0xff00ff)
+		node.add_child(sep)
+		sep.set_size(Vector2(0, 4))
+		pass
 	var vp:Viewport = get_viewport()
 	var point:Vector2 = vp.get_mouse_position()
 	node.set_offset(point)
 	editor.add_child(node)
-	var size:Vector2 = node.get_rect().size
-	print_debug(size)
-	node.set_size(size * Vector2(1, 1))
-	self.remove_child(popmenu)
 	pass
+
+func process_u_source(slot:Control, u_source, sid:int):
+	if(slot is Label):
+		slot.text = u_source
+		if(sid == 1):
+			slot.align = 2
+	elif(slot is OptionButton):
+		for name in u_source:
+			slot.add_item(name)
+			pass
+
 
 func _input(event):
 	if(event.is_action("popmenu_request")):
@@ -130,3 +171,5 @@ func run():
 
 func _run(entry:GraphNode):
 	pass
+
+

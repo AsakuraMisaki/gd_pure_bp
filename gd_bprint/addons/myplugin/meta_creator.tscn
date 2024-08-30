@@ -4,3 +4,8 @@
 margin_right = 290.0
 margin_bottom = 497.0
 text = "#name:value"
+show_line_numbers = true
+draw_tabs = true
+draw_spaces = true
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
