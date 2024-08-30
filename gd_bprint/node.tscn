@@ -24,9 +24,6 @@ __meta__ = {
 margin_top = 52.0
 margin_right = 96.0
 margin_bottom = 72.0
-text = "!="
-items = [ "!=", null, false, 0, null, "==", null, false, 1, null, ">=", null, false, 2, null, "<=", null, false, 3, null, ">", null, false, 4, null, "<", null, false, 5, null, "===", null, false, 6, null, "!==", null, false, 7, null ]
-selected = 0
 
 [node name="colorer" type="ColorPickerButton" parent="ports"]
 margin_top = 76.0

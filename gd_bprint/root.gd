@@ -70,6 +70,8 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 	print_debug(ctx)
 	var name:String = item.get_text(0)
 	var node:GraphNode = _create_ports("graph")
+	node.title = name
+	node.name = name
 	# var basic_ctx = PackedEnv.basic
 	for key in ctx:
 		var item1 = ctx[key]
@@ -81,6 +83,7 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 			var u_source = item1.u_source
 			process_u_source(slot, u_source, sid)
 		var sep = _create_ports("sep")
+		slot.set_meta("ctx", item1)
 		node.add_child(slot)
 		node.set_slot(slot.get_index(), (sid == 0 || sid == 2), 0, 0xffffff, (sid == 1 || sid == 2 ), 0, 0xff00ff)
 		node.add_child(sep)
@@ -129,9 +132,16 @@ func _on_paste_nodes_request():
 
 func _on_node_selected(node:Node):
 	._selected(node)
-	editor._get_code(node)
-	if(node == entry):
-		print_debug("entry selected:", node)
+	# editor._get_code(node)
+	var children:Array = node.get_children()
+	print_debug(node.name)
+	for item in children:
+		if(item.has_meta("ctx")):
+			var ctx = item.get_meta("ctx")
+			print_debug(ctx)
+		pass
+	# if(node == entry):
+	# 	print_debug("entry selected:", node)
 	pass 
 
 func _on_node_unselected(node:Node):
@@ -165,11 +175,16 @@ func save():
 	pass
 
 func run():
-	var entry:GraphNode = editor.get_node("entry")
-	_run(entry)
+	var return_node:GraphNode = editor.find_node("return")
+	print_debug(return_node)
+	if(!return_node):
+		print_debug("run invaild")
+		return
+	_run(return_node)
 	pass
 
-func _run(entry:GraphNode):
+func _run(node:GraphNode):
+	print_debug(node.get_meta("ctx"))
 	pass
 
 

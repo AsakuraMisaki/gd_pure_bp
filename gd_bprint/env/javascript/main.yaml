@@ -90,7 +90,7 @@ main:
 
   return:
     f_:
-      flow: 0
+      slot: 0
       ctx: "return ($i_value);"
     i_value:
       u_source: "value"
