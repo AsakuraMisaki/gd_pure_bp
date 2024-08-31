@@ -19,25 +19,50 @@ __default:
     slot: 3
     type: items
 
+__basic:
+  flow: 0
+  bool: 1
+  int: 2
+  float: 3
+  string: 4
+  Array: 2
+
+$save:
+  id_1:
+    name: set_local
+    f_: id_2
+    i_setter: id_24
+  id_24:
+    name: compare
+    i_a: id_35
+    i_b: id_36
+  id_36:
+    name: int
+  id_35:
+    name: int
+      
+
+  
+
 main:
   if:
     f_:
-      ctx: "if($i_con){$i_true}else{$i_false};\n"
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
     i_con:
       u_source: con
-    i_true: # 节点流中视为待输入端(左端)
+    f_true: # 节点流中视为待输入端(左端)
       slot: 1 # 但是端口作为输出端(开放右端)
       u_source: "true"
-    i_false:
+    f_false:
       slot: 1
       u_source: "false"
   
   for_in:
     f_:
-      ctx: "for(let item in $i_object){$i_body};\n"
+      ctx: "for(let item in $i_object){$f_body};\n"
     i_object:
       u_source: "obj"
-    i_body:
+    f_body:
       slot: 1
       u_source: "body"
     o_item:
@@ -46,10 +71,10 @@ main:
 
   for_each:
     f_:
-      ctx: "$i_arr.forEach((item, i)=>{$i_body});\n"
+      ctx: "$i_arr.forEach((item, i)=>{$f_body});\n"
     i_arr:
       u_source: "arr"
-    i_body:
+    f_body:
       slot: 1
       u_source: "body"
     o_item:
@@ -94,6 +119,7 @@ main:
       ctx: "return ($i_value);"
     i_value:
       u_source: "value"
+      slots: []
   
   _func:
     f_:

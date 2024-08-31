@@ -1,0 +1,5 @@
+[gd_resource type="Theme" format=2]
+
+[resource]
+GraphNode/constants/port_offset = 3
+GraphNode/constants/separation = 8

@@ -38,7 +38,10 @@ func _refresh(text:String):
 	tree.clear()
 	var root = tree.create_item()
 	root.set_text(0, "root")
+	var re:RegEx = RegEx.new()
+	re.compile("^__")
 	for name in targetobj:
+		if(re.search(name)): continue
 		var items:Dictionary = targetobj[name]
 		var second = tree.create_item(root)
 		second.set_text(0, name)
