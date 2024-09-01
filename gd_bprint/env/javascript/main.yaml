@@ -42,27 +42,29 @@ $save:
     name: int
       
 
-  
+__ENTRY:
+  f_:
+    slot: 1
 
 main:
   if:
     f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      ctx: "if($i_con){$i_true}else{$i_false};\n"
     i_con:
       u_source: con
-    f_true: # 节点流中视为待输入端(左端)
+    i_true: # 节点流中视为待输入端(左端)
       slot: 1 # 但是端口作为输出端(开放右端)
       u_source: "true"
-    f_false:
+    i_false:
       slot: 1
       u_source: "false"
   
   for_in:
     f_:
-      ctx: "for(let item in $i_object){$f_body};\n"
+      ctx: "for(let item in $i_object){$i_body};\n"
     i_object:
       u_source: "obj"
-    f_body:
+    i_body:
       slot: 1
       u_source: "body"
     o_item:
@@ -71,10 +73,10 @@ main:
 
   for_each:
     f_:
-      ctx: "$i_arr.forEach((item, i)=>{$f_body});\n"
+      ctx: "$i_arr.forEach((item, i)=>{$i_body});\n"
     i_arr:
       u_source: "arr"
-    f_body:
+    i_body:
       slot: 1
       u_source: "body"
     o_item:
@@ -99,15 +101,19 @@ main:
     i_b:
       u_source: "b"
   
-  not:
-    f_:
-      u_source: "a"
-      ctx: "!($f_)"
+  single_operator:
+    o_op:
+      type: "items"
+      u_source: ["!", "++", "--", "~", "-", "typeof", "delete", "void"]
+      ctx: "$o_op($i_a)"
+    i_a:
+      u_source: a
+    
   
   set_local:
     f_:
       ctx: "$i_local = $i_setter"
-    btn_local:
+    i_local:
       type: "items"
       u_source: []
     i_setter:

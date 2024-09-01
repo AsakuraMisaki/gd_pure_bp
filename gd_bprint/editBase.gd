@@ -31,13 +31,14 @@ func _unselected(node:Node):
 	PGL.selects.erase(node)
 
 func _selected(node:Node):
+	PGL.current = node
 	var has:bool = PGL.selects.has(node)
 	if(has): return
 	# print(node.id)
 	if (not(node.has_meta('id'))):
 		node.set_meta('id', Time.get_ticks_msec())
 	PGL.selects.append(node)
-	PGL.current = node
+	
 	print(node.get_meta('id'))
 
 func _node_delete(tab:GraphEdit, node:Node):

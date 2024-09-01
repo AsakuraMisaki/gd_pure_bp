@@ -13,6 +13,7 @@ key_theme = ExtResource( 5 )
 r_popmenu = ExtResource( 6 )
 r_basic = ExtResource( 4 )
 duplicate_scene_path = "res"
+saver = "res://saved/all.yaml"
 
 [node name="work" type="HSplitContainer" parent="."]
 margin_right = 1900.0

@@ -24,14 +24,51 @@ func updateSourceSignl():
 func _on_GraphEdit_connection_request(from:String, from_slot:int, to:String, to_slot:int):
 	
 	var result:int = .connect_node(from, from_slot, to, to_slot)
-	var slot_from = self.get_node(from).get_child(from_slot)
-	var slot_to = self.get_node(to).get_child(to_slot)
-	var connection_from = slot_from.get_meta("connection")
-	var connection_to = slot_to.get_meta("connection")
-	print_debug(from, from_slot, to, to_slot, connection_to, connection_from)
-	if(!connection_from[1].has(slot_to)):
-		connection_from[1].append(slot_to)
-		connection_to[0].append(slot_from)
+	var slot_from:Control = self.get_node(from).get_child(from_slot)
+	var slot_to:Control = self.get_node(to).get_child(to_slot)
+	var ctx_from = slot_from.get_meta("ctx")
+	var ctx_to = slot_to.get_meta("ctx")
+
+	var output_id = slot_to.get_parent().get_meta("__id")  
+	var input:Array = [from, from_slot]
+	var output:Array = [output_id, to, to_slot]
+	ctx_from.__to = output.duplicate()
+	printt(ctx_to, from, from_slot, to, to_slot)
+	# if(ctx_from.flow == 0 && ctx_to.flow == 1):
+	# 	input = [from, from_slot]
+	# 	output = [to, to_slot]
+	# elif(ctx_to.flow == 0 && ctx_from.flow == 1):
+	# 	input = [to, to_slot]
+	# 	output = [from, from_slot]
+	# elif(ctx_to.flow == 2 && ctx_from.flow == 2):
+	# 	var view_port_rect = slot_to.get_viewport_rect()
+	# 	var vp:Viewport = get_viewport()
+	# 	var point:Vector2 = vp.get_mouse_position()
+	# 	# print_debug(view_port_rect, point)
+	# 	var m_x = point.x
+	# 	var g_rect = slot_to.get_global_rect()
+	# 	var center_x = slot_to.rect_global_position.x + g_rect.size.x / 2
+	# 	var mp_local_to = m_x - center_x
+	# 	printt(to, g_rect, center_x, m_x, mp_local_to)
+	# 	# left
+	# 	if(mp_local_to <= 0): 
+	# 		input = [from, from_slot]
+	# 		output = [to, to_slot]
+	# 	# right
+	# 	elif(mp_local_to > 0): 
+	# 		input = [to, to_slot]
+	# 		output = [from, from_slot]
+	# if(input.size() && input[0] == to):
+	# 	ctx_to.__to = output.duplicate() 
+	# elif(input.size() && input[0] == from):
+	# 	ctx_from.__to = output.duplicate() 
+	# var connection_from = slot_from.get_meta("connection")
+	# var connection_to = slot_to.get_meta("connection")
+	# print_debug(from, from_slot, to, to_slot, connection_to, connection_from)
+	# if(!connection_from[1].has(slot_to)):
+	# 	connection_from[1].append(slot_to)
+	# 	connection_to[0].append(slot_from)
+
 	# var id_from:String = from + String(from_slot)
 	# var id_to:String = to + String(to_slot)
 	# _add_connection_cache(id_from, id_to)
@@ -64,13 +101,13 @@ func _remove_connection_cache(id_from:String, id_to:String):
 
 func _on_GraphEdit_disconnection_request(from:String, from_slot:int, to:String, to_slot:int):
 	.disconnect_node(from, from_slot, to, to_slot)
-	var slot_from = self.get_node(from).get_child(from_slot)
-	var slot_to = self.get_node(to).get_child(to_slot)
-	var connection_from = slot_from.get_meta("connection")
-	var connection_to = slot_to.get_meta("connection")
-	# if(!connection_from[1].has(slot_to)):
-	connection_from[1].erase(slot_to)
-	connection_to[0].erase(slot_from)
+	# var slot_from = self.get_node(from).get_child(from_slot)
+	# var slot_to = self.get_node(to).get_child(to_slot)
+	# var connection_from = slot_from.get_meta("connection")
+	# var connection_to = slot_to.get_meta("connection")
+	# # if(!connection_from[1].has(slot_to)):
+	# connection_from[1].erase(slot_to)
+	# connection_to[0].erase(slot_from)
 
 	pass # Replace with function body.
 

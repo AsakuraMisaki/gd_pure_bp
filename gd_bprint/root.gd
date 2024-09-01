@@ -10,13 +10,19 @@ onready var debuger:RichTextLabel = get_node("work/HBoxContainer/debug")
 onready var editor:GraphEdit = get_node("work/TabContainer/GraphEdit")
 onready var run_btn:Button = get_node("run")
 onready var save_btn:Button = get_node("save")
+onready var load_btn:Button = get_node("load")
 
 export(Theme) var key_theme:Theme
 export(Resource) var env:Resource
 export(PackedScene) var r_popmenu:PackedScene 
 export(PackedScene) var r_basic:PackedScene 
 export(String) var duplicate_scene_path:String
-export(PackedScene) var saver:PackedScene
+export(String) var saver:String
+onready var saver_reader = File.new()
+onready var sfile_ok:int = saver_reader.open(saver, File.READ_WRITE)
+onready var save_data = PGL.yaml.parse(saver_reader.get_as_text())
+onready var entry = PackedEnv.contextDic.__ENTRY
+
 
 onready var popmenu:Node = r_popmenu.instance()
 onready var basic:Node = r_basic.instance()
@@ -29,9 +35,12 @@ var debug_mes = "\n \t {mes}"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	popmenu.connect("node_created", self, "on_popmenu_node_created")
+	# editor.connect("connection_to_empty", self, "on_connection_to_empty")
 	run_btn.connect("button_down", self, "run")
 	save_btn.connect("button_down", self, "save")
+	load_btn.connect("button_down", self, "load")
 	# _readyBasic()
 	pass # Replace with function body.
 
@@ -48,6 +57,8 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 	node.name = name
 	# var basic_ctx = PackedEnv.basic
 	var flow_ctx:Dictionary = Dictionary()
+	var __id = Time.get_ticks_msec()
+	node.set_meta("__id", __id)
 	for key in ctx:
 		var item1 = ctx[key]
 		print_debug(item1)
@@ -57,18 +68,13 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 		if(item1.has("u_source")):
 			var u_source = item1.u_source
 			process_u_source(slot, u_source, sid)
-		var sep = _create_ports("sep")
-		slot.set_meta("ctx", item1)
-		slot.set_meta("ctx_key", key)
-		slot.set_meta("connection", {0:[], 1:[]})
+		var ctx_item = item1.duplicate()
+		ctx_item.__key = key
+		slot.set_meta("ctx", ctx_item)
 		node.add_child(slot)
-		flow_ctx[key] = slot
-		var i:int = slot.get_index()
-		print_debug(i)
-		slot.set_meta("slot_type", i)
+		flow_ctx[key] = ctx_item
+		var i = slot.get_index()
 		node.set_slot(i, (sid == 0 || sid == 2), 0, 0xffffff, (sid == 1 || sid == 2 ), 0, 0xff00ff)
-		# node.add_child(sep)
-		sep.set_size(Vector2(0, 4))
 		pass
 	var vp:Viewport = get_viewport()
 	var point:Vector2 = vp.get_mouse_position()
@@ -78,6 +84,38 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 	node.set_meta("ctx", flow_ctx)
 	node.owner = editor
 	pass
+
+func create_node_by_saved(data:Dictionary, title:String)->GraphNode:
+	var node:GraphNode = _create_ports("graph")
+	var flow_ctx:Dictionary = Dictionary()
+	var ctx = data.ctx
+	node.set_meta("ctx", ctx)
+	node.set_meta("__id", data.__id)
+	for key in ctx:
+		var item1 = ctx[key]
+		print_debug(item1)
+		var path = item1.type
+		var sid:int = item1.slot
+		var slot:Control = _create_ports(path)
+		if(item1.has("u_source")):
+			var u_source = item1.u_source
+			process_u_source(slot, u_source, sid)
+		var ctx_item = item1
+		ctx_item.__key = key
+		slot.set_meta("ctx", ctx_item)
+		node.add_child(slot)
+		var i = slot.get_index()
+		node.set_slot(i, (sid == 0 || sid == 2), 0, 0xffffff, (sid == 1 || sid == 2 ), 0, 0xff00ff)
+		pass
+	node.theme = key_theme
+	node.title = (data.title || title)
+	var point = Vector2(data.offset[0], data.offset[1])
+	node.set_offset(point)
+	editor.add_child(node)
+	node.owner = editor
+	return node
+	pass
+
 
 func process_u_source(slot:Control, u_source, sid:int):
 	if(slot is Label):
@@ -146,52 +184,68 @@ func write_debug(mes:String):
 
 
 func save():
-	var current_scene = editor
-	if current_scene:
-			# 创建场景的副本
-			var name = current_scene.get_name()
-			var FLAG = DUPLICATE_USE_INSTANCING
-			var node = current_scene.duplicate(FLAG)
-			var scene = PackedScene.new()
-			# 现在只有 `node` 和 `rigid` 被打包。
-			var result = scene.pack(node)
-			if result == OK:
-				var error = ResourceSaver.save("res://res/"+ name + ".scn", scene)  # 或者 "user://..."
-				if error != OK:
-						push_error("保存场景到磁盘时发生错误。")
+	var children = editor.get_children()
+	var targets = {}
+	for node in children:
+		if(!(node is GraphNode)): continue
+		var id = node.get_meta("__id")
+		var title = node.title
+		var offset = node.get_offset()
+		offset = [offset.x, offset.y]
+		var ctx = node.get_meta("ctx")
+		targets[id] = { "title":title, "offset":offset, "ctx":ctx, "__id":id }
+		pass
+	var uid = Time.get_datetime_string_from_system()
+	var saved = {uid:targets}
+	var result = PGL.yaml.print(saved)
+	print_debug(result)
+	var _pre = saver_reader.get_as_text()
+	_pre += result + "\n"
+	saver_reader.store_string(result + "\n")
+	saver_reader.flush()
+	pass
+
+func load():
+	print_debug(save_data)
+	
+	for name in save_data:
+		var temp = Dictionary()
+		var data = save_data[name]
+		for id in data:
+			var item = data[id]
+			var node:GraphNode = create_node_by_saved(item, item.title)
+			temp[id] = node
+			pass
+		for id1 in temp:
+			var g_node = temp[id1]
+			
+			pass
+		temp.clear()
+		pass
+	
+	pass
+
+func _load(targets:Array):
+	
 	pass
 
 func run():
-	var return_node:GraphNode = _find_entry()
-	print_debug(editor.connection)
-	print_debug(return_node)
-	if(!return_node):
-		print_debug("run invaild")
-		return
+	_run(PGL.current)
+	# var return_node:GraphNode = _find_entry()
+	# print_debug(editor.connection)
+	# print_debug(return_node)
+	# if(!return_node):
+	# 	print_debug("run invaild")
+	# 	return
 	# _run(return_node)
 	pass
 
 func _run(node:GraphNode):
-	var connection:Dictionary = editor.connection
-	# print_debug(node.get_meta("ctx"))
-	var flow_ctx:Dictionary = node.get_meta("ctx")
-	if(!flow_ctx): return
-	var has:bool = flow_ctx.has("f_")
-	for key in flow_ctx:
-		var _node:GraphNode = flow_ctx[key]
-		var connect_id = node.name + String(_node.get_index())
-		if(connection.has(connect_id)):
-			var arr:Array = connection[connect_id]
-			for ids in arr:
+	
 
-				pass
-		pass
-	# if(has):
-	# 	var slot:Control = flow_ctx.f_
-	# 	var i = slot.get_index()
+	pass
 
-	# 	pass
-
+func _exp_ctx_text(text:String):
 	pass
 
 func _find_entry():

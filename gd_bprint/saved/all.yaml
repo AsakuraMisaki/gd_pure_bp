@@ -1,0 +1,94 @@
+'2024-09-01T22:44:28':
+  8051:
+    title: 'for_in'
+    offset:
+      - 1110
+      - 450
+    ctx:
+      f_:
+        ctx: |
+          for(let item in $i_object){$i_body};
+
+        flow: 2
+        slot: 2
+        type: 'label'
+        __key: 'f_'
+        __to:
+          - 9385
+          - 'return'
+          - 0
+      i_object:
+        u_source: 'obj'
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_object'
+      i_body:
+        slot: 1
+        u_source: 'body'
+        flow: 0
+        type: 'label'
+        __key: 'i_body'
+      o_item:
+        ctx: 'item'
+        u_source: 'item'
+        flow: 1
+        slot: 1
+        type: 'label'
+        __key: 'o_item'
+  9385:
+    title: 'return'
+    offset:
+      - 1340
+      - 525
+    ctx:
+      f_:
+        slot: 0
+        ctx: 'return ($i_value);'
+        flow: 2
+        type: 'label'
+        __key: 'f_'
+      i_value:
+        u_source: 'value'
+        slots: []
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_value'
+  7478:
+    title: 'if'
+    offset:
+      - 925
+      - 440
+    ctx:
+      f_:
+        ctx: |
+          if($i_con){$i_true}else{$i_false};
+
+        flow: 2
+        slot: 2
+        type: 'label'
+        __key: 'f_'
+        __to:
+          - 8051
+          - 'for_in'
+          - 0
+      i_con:
+        u_source: 'con'
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_con'
+      i_true:
+        slot: 1
+        u_source: 'true'
+        flow: 0
+        type: 'label'
+        __key: 'i_true'
+      i_false:
+        slot: 1
+        u_source: 'false'
+        flow: 0
+        type: 'label'
+        __key: 'i_false'
+
