@@ -245,7 +245,7 @@ func _run(node:GraphNode):
 
 	pass
 
-func _exp_ctx_text(text:String):
+func _exec_ctx_text(text:String):
 	pass
 
 func _find_entry():

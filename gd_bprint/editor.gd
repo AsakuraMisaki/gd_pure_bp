@@ -29,11 +29,15 @@ func _on_GraphEdit_connection_request(from:String, from_slot:int, to:String, to_
 	var ctx_from = slot_from.get_meta("ctx")
 	var ctx_to = slot_to.get_meta("ctx")
 
-	var output_id = slot_to.get_parent().get_meta("__id")  
-	var input:Array = [from, from_slot]
-	var output:Array = [output_id, to, to_slot]
-	ctx_from.__to = output.duplicate()
-	printt(ctx_to, from, from_slot, to, to_slot)
+	var output_id
+	if(ctx_to.flow == 0):
+		output_id = slot_from.get_parent().get_meta("__id")  
+		ctx_to.__to = [output_id, from, from_slot]
+	else:
+		output_id = slot_to.get_parent().get_meta("__id")  
+		ctx_from.__to = [output_id, to, to_slot]
+
+	printt(ctx_to, ctx_from, from, from_slot, to, to_slot)
 	# if(ctx_from.flow == 0 && ctx_to.flow == 1):
 	# 	input = [from, from_slot]
 	# 	output = [to, to_slot]

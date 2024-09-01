@@ -90,6 +90,13 @@ margin_right = 99.0
 margin_bottom = 21.0
 text = "run"
 
+[node name="load" type="Button" parent="."]
+margin_left = 114.0
+margin_top = 1.0
+margin_right = 155.0
+margin_bottom = 21.0
+text = "load"
+
 [connection signal="connection_request" from="work/TabContainer/GraphEdit" to="work/TabContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="copy_nodes_request" from="work/TabContainer/GraphEdit" to="." method="_on_copy_nodes_request"]
 [connection signal="disconnection_request" from="work/TabContainer/GraphEdit" to="work/TabContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
