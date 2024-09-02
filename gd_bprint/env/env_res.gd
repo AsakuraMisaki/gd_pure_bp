@@ -189,7 +189,7 @@ func _prepareCoreCtx():
 		var item = main[key]
 		_merge_item(item, default_ctx)
 		pass
-	_merge_item(basic.__ENTRY, default_ctx)
+	# _merge_item(basic.main__ENTRY, default_ctx)
 	# merge_basic(re, basic, default_ctx)
 	contextDic.merge(basic)	
 

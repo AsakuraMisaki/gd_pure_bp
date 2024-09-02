@@ -46,6 +46,7 @@ func _refresh(text:String):
 		var second = tree.create_item(root)
 		second.set_text(0, name)
 		for name1 in items:
+			if(re.search(name1)): continue
 			var trd = tree.create_item(second)
 			trd.set_text(0, name1)
 			trd.set_meta("context", items[name1])

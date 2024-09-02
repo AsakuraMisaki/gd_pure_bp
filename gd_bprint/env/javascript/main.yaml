@@ -39,14 +39,17 @@ $save:
   id_36:
     name: int
   id_35:
-    name: int
+    name: [[int], [b]]
       
 
-__ENTRY:
-  f_:
-    slot: 1
+
 
 main:
+
+  __ENTRY:
+    f_:
+      slot: 1
+
   if:
     f_:
       ctx: "if($i_con){$i_true}else{$i_false};\n"

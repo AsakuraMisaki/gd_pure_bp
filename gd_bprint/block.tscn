@@ -103,3 +103,4 @@ text = "load"
 [connection signal="node_selected" from="work/TabContainer/GraphEdit" to="." method="_on_node_selected"]
 [connection signal="node_unselected" from="work/TabContainer/GraphEdit" to="." method="_on_node_unselected"]
 [connection signal="paste_nodes_request" from="work/TabContainer/GraphEdit" to="." method="_on_paste_nodes_request"]
+[connection signal="popup_request" from="work/TabContainer/GraphEdit" to="." method="_popmenu_request"]

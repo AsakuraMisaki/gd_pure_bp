@@ -21,7 +21,7 @@ export(String) var saver:String
 onready var saver_reader = File.new()
 onready var sfile_ok:int = saver_reader.open(saver, File.READ_WRITE)
 onready var save_data = PGL.yaml.parse(saver_reader.get_as_text())
-onready var entry = PackedEnv.contextDic.__ENTRY
+
 
 
 onready var popmenu:Node = r_popmenu.instance()
@@ -41,6 +41,7 @@ func _ready():
 	run_btn.connect("button_down", self, "run")
 	save_btn.connect("button_down", self, "save")
 	load_btn.connect("button_down", self, "load")
+	_setup_entry()
 	# _readyBasic()
 	pass # Replace with function body.
 
@@ -49,16 +50,27 @@ func _create_ports(name:String)->Node:
 	var port:Control = basic.get_node("ports/"+name)
 	return port.duplicate()
 
+func _setup_entry():
+	var point = Vector2(100, 100)
+	var node:GraphNode = _create_node_common(PackedEnv.contextDic.main.__ENTRY, "__ENTRY", {}, "__ENTRY", point)
+	editor.add_child(node)
+	editor.set_meta("entry", node)
+	pass
+
 func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 	print_debug(ctx)
 	var name:String = item.get_text(0)
-	var node:GraphNode = _create_ports("graph")
-	node.title = name
-	node.name = name
-	# var basic_ctx = PackedEnv.basic
 	var flow_ctx:Dictionary = Dictionary()
 	var __id = Time.get_ticks_msec()
-	node.set_meta("__id", __id)
+	var vp:Viewport = get_viewport()
+	var point:Vector2 = vp.get_mouse_position()
+	var node:GraphNode = _create_node_common(ctx, __id, flow_ctx, name, point)
+	editor.add_child(node)
+	
+	pass
+
+func _create_node_common(ctx, id, node_ctx, title, point)->GraphNode:
+	var node:GraphNode = _create_ports("graph")
 	for key in ctx:
 		var item1 = ctx[key]
 		print_debug(item1)
@@ -70,49 +82,25 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 			process_u_source(slot, u_source, sid)
 		var ctx_item = item1.duplicate()
 		ctx_item.__key = key
+		node_ctx[key] = ctx_item
 		slot.set_meta("ctx", ctx_item)
 		node.add_child(slot)
-		flow_ctx[key] = ctx_item
 		var i = slot.get_index()
 		node.set_slot(i, (sid == 0 || sid == 2), 0, 0xffffff, (sid == 1 || sid == 2 ), 0, 0xff00ff)
 		pass
-	var vp:Viewport = get_viewport()
-	var point:Vector2 = vp.get_mouse_position()
-	node.theme = key_theme
+	node.set_meta("__id", id)
+	node.set_meta("ctx", node_ctx)
 	node.set_offset(point)
-	editor.add_child(node)
-	node.set_meta("ctx", flow_ctx)
-	node.owner = editor
-	pass
+	node.theme = key_theme
+	node.title = title
+	node.name = title
+	# node.owner = editor
+	return node
 
 func create_node_by_saved(data:Dictionary, title:String)->GraphNode:
-	var node:GraphNode = _create_ports("graph")
-	var flow_ctx:Dictionary = Dictionary()
-	var ctx = data.ctx
-	node.set_meta("ctx", ctx)
-	node.set_meta("__id", data.__id)
-	for key in ctx:
-		var item1 = ctx[key]
-		print_debug(item1)
-		var path = item1.type
-		var sid:int = item1.slot
-		var slot:Control = _create_ports(path)
-		if(item1.has("u_source")):
-			var u_source = item1.u_source
-			process_u_source(slot, u_source, sid)
-		var ctx_item = item1
-		ctx_item.__key = key
-		slot.set_meta("ctx", ctx_item)
-		node.add_child(slot)
-		var i = slot.get_index()
-		node.set_slot(i, (sid == 0 || sid == 2), 0, 0xffffff, (sid == 1 || sid == 2 ), 0, 0xff00ff)
-		pass
-	node.theme = key_theme
-	node.title = (data.title || title)
 	var point = Vector2(data.offset[0], data.offset[1])
-	node.set_offset(point)
+	var node = _create_node_common(data.ctx, data.__id, { }, title, point)
 	editor.add_child(node)
-	node.owner = editor
 	return node
 	pass
 
@@ -129,12 +117,20 @@ func process_u_source(slot:Control, u_source, sid:int):
 
 
 func _input(event):
-	if(event.is_action("popmenu_request")):
-		var vp:Viewport = get_viewport()
-		var point:Vector2 = vp.get_mouse_position()
-		popmenu.set_position(point)
-		if(!(self.get_children().has(popmenu))):
-			self.add_child(popmenu)
+	# if(event.is_action("popmenu_request")):
+	# 	var vp:Viewport = get_viewport()
+	# 	var point:Vector2 = vp.get_mouse_position()
+	# 	popmenu.set_position(point)
+	# 	if(!(self.get_children().has(popmenu))):
+	# 		self.add_child(popmenu)
+	pass
+
+func _popmenu_request(point:Vector2):
+	popmenu.set_position(point)
+	if(!(self.get_children().has(popmenu))):
+		self.add_child(popmenu)
+	else:
+		self.remove_child(popmenu)
 	pass
 
 func _process(delta):
@@ -206,6 +202,7 @@ func save():
 	pass
 
 func load():
+	save_data = PGL.yaml.parse(saver_reader.get_as_text()).result
 	print_debug(save_data)
 	
 	for name in save_data:
@@ -215,12 +212,27 @@ func load():
 			var item = data[id]
 			var node:GraphNode = create_node_by_saved(item, item.title)
 			temp[id] = node
+			# print_debug(temp)
 			pass
+		# print_debug(temp["16018"])
 		for id1 in temp:
 			var g_node = temp[id1]
-			
+			var name_from = g_node.name
+			var children = g_node.get_children()
+			for slot in children:
+				var ctx = slot.get_meta("ctx")
+				var __to = ctx.get("__to", null)
+				var slot_from = slot.get_index()
+				if(__to):
+					var ptr_to0 = __to[0]
+					# print_debug(temp["16018"], temp, __to[0])
+					var toer = temp[String(ptr_to0)]
+					var name_to = toer.name
+					var slot_to = __to[2]
+					editor.connect_node(name_from, slot_from, name_to, slot_to)
+				pass
 			pass
-		temp.clear()
+		# temp.clear()
 		pass
 	
 	pass

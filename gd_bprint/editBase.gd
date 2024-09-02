@@ -9,8 +9,8 @@ func _paste_nodes_request(tab:GraphEdit):
 	var vp:Viewport = get_viewport()
 	var point:Vector2 = vp.get_mouse_position()
 	var offset:Array = [0, 0]
-	var ox:int = 50
-	var oy:int = 25
+	var ox:int = 100
+	var oy:int = 50
 	for item in PGL.selecteds:
 		item = item as GraphNode
 		var newNode:GraphNode = item.duplicate(8)
