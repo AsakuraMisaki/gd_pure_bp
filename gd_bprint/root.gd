@@ -222,20 +222,32 @@ func load():
 			for slot in children:
 				var ctx = slot.get_meta("ctx")
 				var __to = ctx.get("__to", null)
-				var slot_from = slot.get_index()
+				var flow_id = ctx.flow
+				var temp1 = funcref(self, "_finder")
+				var _children = editor._array_filter(children, temp1, {"flow_id":flow_id})
+				var slot_from = _children.find(slot)
 				if(__to):
 					var ptr_to0 = __to[0]
 					# print_debug(temp["16018"], temp, __to[0])
 					var toer = temp[String(ptr_to0)]
 					var name_to = toer.name
 					var slot_to = __to[2]
-					editor.connect_node(name_from, slot_from, name_to, slot_to)
+					if(ctx.flow == 0):
+						editor.connect_node(name_to, slot_to, name_from, slot_from)
+					else:
+						editor.connect_node(name_from, slot_from, name_to, slot_to)
 				pass
 			pass
 		# temp.clear()
 		pass
 	
 	pass
+
+static func _finder(item, options):
+	var ctx = item.get_meta("ctx") 
+	if(ctx.flow == options.flow_id):
+		return true
+	return false
 
 func _load(targets:Array):
 	

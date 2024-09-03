@@ -21,24 +21,46 @@ func _process(delta):
 func updateSourceSignl():
 	pass
 
+static func _finder(item, options)->bool:
+	var ctx = item.get_meta("ctx")
+	if(ctx.slot == 2 || ctx.slot == options.slot):
+		return true
+	return false
+
+func find_ctx_slot(name:String, slot:int, slot_id:int):
+	var parent:GraphNode = self.get_node(name)
+	var children:Array = parent.get_children()
+	var temp = funcref(self, "_finder")
+	var _children:Array = _array_filter(children, temp, {"slot":slot, "slot_id":slot_id})
+	if(_children.size() > slot_id):
+		return _children[slot_id]
+	# var child:Control = _children[0]
+	# return child
+
+func _array_filter(array:Array, filter:FuncRef, options:Dictionary) -> Array:
+	var result = []
+	for item in array:
+		if(filter.call_func(item, options)):
+			result.append(item)
+		pass
+	return result
+
 func _on_GraphEdit_connection_request(from:String, from_slot:int, to:String, to_slot:int):
 	
 	var result:int = .connect_node(from, from_slot, to, to_slot)
-	var slot_from:Control = self.get_node(from).get_child(from_slot)
-	var slot_to:Control = self.get_node(to).get_child(to_slot)
+	var slot_from:Control = find_ctx_slot(from, 1, from_slot)
+	var slot_to:Control = find_ctx_slot(to, 0, to_slot)
+	# self.get_node(from).get_child(from_slot)
+	# var slot_to:Control = self.get_node(to).get_child(to_slot)
 	var ctx_from = slot_from.get_meta("ctx")
 	var ctx_to = slot_to.get_meta("ctx")
 
 	var output_id
 	if(ctx_to.flow == 0):
 		output_id = slot_from.get_parent().get_meta("__id")  
-		# var __to = ctx_to.get("__to", {})
-		# __to[output_id] = 
 		ctx_to.__to = [output_id, from, from_slot]
 	else:
 		output_id = slot_to.get_parent().get_meta("__id")  
-		# var __to = ctx_from.get("__to", {})
-		# __to[output_id] = [to, to_slot]
 		ctx_from.__to = [output_id, to, to_slot]
 
 	printt(ctx_to, ctx_from, from, from_slot, to, to_slot)
@@ -63,16 +85,13 @@ func _remove_connection_cache(id_from:String, id_to:String):
 	else:
 		pass
 	pass
-# func is_valid_connection_type(from:int, to:int)->bool:
-# 	if(to == 0):
-# 		return true
-# 	return (from == to)
+
 
 
 func _on_GraphEdit_disconnection_request(from:String, from_slot:int, to:String, to_slot:int):
 	.disconnect_node(from, from_slot, to, to_slot)
-	var slot_from:Control = self.get_node(from).get_child(from_slot)
-	var slot_to:Control = self.get_node(to).get_child(to_slot)
+	var slot_from:Control = find_ctx_slot(from, 1, from_slot)
+	var slot_to:Control = find_ctx_slot(to, 0, to_slot)
 	var ctx_from = slot_from.get_meta("ctx")
 	var ctx_to = slot_to.get_meta("ctx")
 
@@ -89,14 +108,7 @@ func _on_GraphEdit_disconnection_request(from:String, from_slot:int, to:String, 
 		var id = ctx_from.__to[0]
 		if(id == output_id):
 			ctx_from.erase("__to")
-	# var slot_from = self.get_node(from).get_child(from_slot)
-	# var slot_to = self.get_node(to).get_child(to_slot)
-	# var connection_from = slot_from.get_meta("connection")
-	# var connection_to = slot_to.get_meta("connection")
-	# # if(!connection_from[1].has(slot_to)):
-	# connection_from[1].erase(slot_to)
-	# connection_to[0].erase(slot_from)
-
+	
 	pass # Replace with function body.
 
 func _get_code(node:GraphNode):
