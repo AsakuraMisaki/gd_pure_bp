@@ -32,14 +32,14 @@ func _on_GraphEdit_connection_request(from:String, from_slot:int, to:String, to_
 	var output_id
 	if(ctx_to.flow == 0):
 		output_id = slot_from.get_parent().get_meta("__id")  
-		var __to = ctx_to.get("__to", {})
-		__to[output_id] = [from, from_slot]
-		ctx_to.__to = __to
+		# var __to = ctx_to.get("__to", {})
+		# __to[output_id] = 
+		ctx_to.__to = [output_id, from, from_slot]
 	else:
 		output_id = slot_to.get_parent().get_meta("__id")  
-		var __to = ctx_from.get("__to", {})
-		__to[output_id] = [to, to_slot]
-		ctx_from.__to = __to
+		# var __to = ctx_from.get("__to", {})
+		# __to[output_id] = [to, to_slot]
+		ctx_from.__to = [output_id, to, to_slot]
 
 	printt(ctx_to, ctx_from, from, from_slot, to, to_slot)
 	
@@ -79,10 +79,16 @@ func _on_GraphEdit_disconnection_request(from:String, from_slot:int, to:String, 
 	var output_id
 	if(ctx_to.flow == 0 && ctx_to.has("__to")):
 		output_id = slot_from.get_parent().get_meta("__id")  
-		ctx_to.__to.erase(output_id)
+		var id = ctx_to.__to[0]
+		if(id == output_id):
+			ctx_to.erase("__to")
+		# output_id = slot_from.get_parent().get_meta("__id")  
+		# ctx_to.__to.erase(output_id)
 	elif(ctx_from.has("__to")):
 		output_id = slot_to.get_parent().get_meta("__id")  
-		ctx_from.__to.erase(output_id)
+		var id = ctx_from.__to[0]
+		if(id == output_id):
+			ctx_from.erase("__to")
 	# var slot_from = self.get_node(from).get_child(from_slot)
 	# var slot_to = self.get_node(to).get_child(to_slot)
 	# var connection_from = slot_from.get_meta("connection")

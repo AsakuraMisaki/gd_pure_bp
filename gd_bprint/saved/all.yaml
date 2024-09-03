@@ -1,96 +1,25 @@
-'2024-09-02T21:49:16':
+'2024-09-03T13:27:03':
   __ENTRY:
     title: '__ENTRY'
     offset:
-      - 100
-      - 100
+      - 690
+      - 425
     ctx:
       f_:
         slot: 1
         flow: 2
         type: 'label'
         __key: 'f_'
+        __to:
+          - 7743
+          - 'for_in'
+          - 0
     __id: '__ENTRY'
-  8470:
-    title: 'return'
-    offset:
-      - 696
-      - 590
-    ctx:
-      f_:
-        slot: 0
-        ctx: 'return ($i_value);'
-        flow: 2
-        type: 'label'
-        __key: 'f_'
-      i_value:
-        u_source: 'value'
-        slots: []
-        flow: 0
-        slot: 0
-        type: 'label'
-        __key: 'i_value'
-        __to:
-          7723:
-            - 'int'
-            - 0
-    __id: 8470
-  6656:
-    title: 'if'
-    offset:
-      - 305
-      - 565
-    ctx:
-      f_:
-        ctx: |
-          if($i_con){$i_true}else{$i_false};
-
-        flow: 2
-        slot: 2
-        type: 'label'
-        __key: 'f_'
-        __to:
-          8470:
-            - 'if'
-            - 0
-      i_con:
-        u_source: 'con'
-        flow: 0
-        slot: 0
-        type: 'label'
-        __key: 'i_con'
-      i_true:
-        slot: 1
-        u_source: 'true'
-        flow: 0
-        type: 'label'
-        __key: 'i_true'
-      i_false:
-        slot: 1
-        u_source: 'false'
-        flow: 0
-        type: 'label'
-        __key: 'i_false'
-    __id: 6656
-  7723:
-    title: 'int'
-    offset:
-      - 300
-      - 710
-    ctx:
-      o_count:
-        type: 'counter'
-        ctx: '$o_count'
-        flow: 1
-        slot: 1
-        __key: 'o_count'
-        __to: {}
-    __id: 7723
-  7083:
+  7743:
     title: 'for_in'
     offset:
-      - 45
-      - 555
+      - 860
+      - 285
     ctx:
       f_:
         ctx: |
@@ -101,9 +30,9 @@
         type: 'label'
         __key: 'f_'
         __to:
-          6656:
-            - 'for_in'
-            - 0
+          - 8277
+          - 'for_each'
+          - 0
       i_object:
         u_source: 'obj'
         flow: 0
@@ -123,5 +52,194 @@
         slot: 1
         type: 'label'
         __key: 'o_item'
-    __id: 7083
+    __id: 7743
+  8277:
+    title: 'for_each'
+    offset:
+      - 1005
+      - 225
+    ctx:
+      f_:
+        ctx: |
+          $i_arr.forEach((item, i)=>{$i_body});
+
+        flow: 2
+        slot: 2
+        type: 'label'
+        __key: 'f_'
+        __to:
+          - 7210
+          - 'if'
+          - 0
+      i_arr:
+        u_source: 'arr'
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_arr'
+      i_body:
+        slot: 1
+        u_source: 'body'
+        flow: 0
+        type: 'label'
+        __key: 'i_body'
+      o_item:
+        ctx: 'item'
+        u_source: 'item'
+        flow: 1
+        slot: 1
+        type: 'label'
+        __key: 'o_item'
+      o_i:
+        ctx: 'i'
+        u_source: 'i'
+        flow: 1
+        slot: 1
+        type: 'label'
+        __key: 'o_i'
+    __id: 8277
+  7210:
+    title: 'if'
+    offset:
+      - 1215
+      - 225
+    ctx:
+      f_:
+        ctx: |
+          if($i_con){$i_true}else{$i_false};
+
+        flow: 2
+        slot: 2
+        type: 'label'
+        __key: 'f_'
+        __to:
+          - 11493
+          - 'return'
+          - 0
+      i_con:
+        u_source: 'con'
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_con'
+      i_true:
+        slot: 1
+        u_source: 'true'
+        flow: 0
+        type: 'label'
+        __key: 'i_true'
+      i_false:
+        slot: 1
+        u_source: 'false'
+        flow: 0
+        type: 'label'
+        __key: 'i_false'
+    __id: 7210
+  8860:
+    title: 'int'
+    offset:
+      - 910
+      - 445
+    ctx:
+      o_count:
+        type: 'counter'
+        ctx: '$o_count'
+        flow: 1
+        slot: 1
+        __key: 'o_count'
+        __to:
+          - 10593
+          - 'single_operator'
+          - 0
+    __id: 8860
+  10593:
+    title: 'single_operator'
+    offset:
+      - 1135
+      - 465
+    ctx:
+      o_op:
+        type: 'items'
+        u_source:
+          - '!'
+          - '++'
+          - '--'
+          - '~'
+          - '-'
+          - 'typeof'
+          - 'delete'
+          - 'void'
+        ctx: '$o_op($i_a)'
+        flow: 1
+        slot: 1
+        __key: 'o_op'
+      i_a:
+        u_source: 'a'
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_a'
+    __id: 10593
+  11493:
+    title: 'return'
+    offset:
+      - 1475
+      - 440
+    ctx:
+      f_:
+        slot: 0
+        ctx: 'return ($i_value);'
+        flow: 2
+        type: 'label'
+        __key: 'f_'
+      i_value:
+        u_source: 'value'
+        slots: []
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_value'
+        __to:
+          - 9343
+          - 'compare'
+          - 0
+    __id: 11493
+  9343:
+    title: 'compare'
+    offset:
+      - 1300
+      - 490
+    ctx:
+      i_a:
+        u_source: 'a'
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_a'
+        __to:
+          - 10593
+          - 'single_operator'
+          - 0
+      o_op:
+        type: 'items'
+        u_source:
+          - '>='
+          - '<='
+          - '>'
+          - '<'
+          - '=='
+          - '!='
+          - '==='
+          - '!=='
+        ctx: '$i_a $o_op $i_b'
+        flow: 1
+        slot: 1
+        __key: 'o_op'
+      i_b:
+        u_source: 'b'
+        flow: 0
+        slot: 0
+        type: 'label'
+        __key: 'i_b'
+    __id: 9343
 
