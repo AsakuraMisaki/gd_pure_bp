@@ -18,9 +18,12 @@ export(PackedScene) var r_popmenu:PackedScene
 export(PackedScene) var r_basic:PackedScene 
 export(String) var duplicate_scene_path:String
 export(String) var saver:String
+export(String) var jser:String
 onready var saver_reader = File.new()
 onready var sfile_ok:int = saver_reader.open(saver, File.READ_WRITE)
 onready var save_data = PGL.yaml.parse(saver_reader.get_as_text())
+onready var jser_reader = File.new()
+onready var jfile_ok:int = jser_reader.open(jser, File.READ_WRITE)
 
 
 
@@ -212,6 +215,7 @@ func load():
 			var item = data[id]
 			var node:GraphNode = create_node_by_saved(item, item.title)
 			temp[id] = node
+			node.name = id
 			# print_debug(temp)
 			pass
 		# print_debug(temp["16018"])
@@ -245,7 +249,7 @@ func load():
 
 static func _finder(item, options):
 	var ctx = item.get_meta("ctx") 
-	if(ctx.flow == options.flow_id):
+	if(ctx.flow == 2 || ctx.flow == options.flow_id):
 		return true
 	return false
 
@@ -254,7 +258,7 @@ func _load(targets:Array):
 	pass
 
 func run():
-	_run(PGL.current)
+	_exec_ctx_text(PGL.current.get_child(0))
 	# var return_node:GraphNode = _find_entry()
 	# print_debug(editor.connection)
 	# print_debug(return_node)
@@ -269,7 +273,63 @@ func _run(node:GraphNode):
 
 	pass
 
-func _exec_ctx_text(text:String):
+func _exec_ctx_text(slot0:Control):
+	# $i_arr.forEach((item, i)=>{$f_body});
+	var _ctx = slot0.get_meta("ctx")
+	print_debug(_ctx)
+	var text = "$f_"
+	if(_ctx.has("ctx")):
+		var text1 = _ctx.ctx
+		text = text1 + text
+	
+	# var text1 = _ctx.ctx
+	# var text = text1 + "$f_"
+	print_debug(text)
+	jser_reader.store_string(text + '\t')
+	jser_reader.flush()
+	var node = slot0.get_parent()
+	var deep_execes = RegEx.new()
+	deep_execes.compile("\\$[a-z_]+")
+	var ctx_keys = node.get_meta("ctx").keys()
+	var results = deep_execes.search_all(text)
+	for re in results:
+		var _name = re.get_string()
+		_name = _name.replace("$", "")
+		var i = ctx_keys.find(_name)
+		if(i < 0):
+			continue
+		var slot:Control = node.get_child(i)
+		var ctx = slot.get_meta("ctx")
+		var txt
+		if(ctx.has("__to")):
+			var t_id = ctx.__to[0]
+			var index = ctx.__to[2]
+			var t_node = editor.get_node(String(t_id))
+			var children = t_node.get_children()
+			var temp1 = funcref(self, "_finder")
+			var t_slot = editor._array_filter(children, temp1, { "flow_id":1 })
+			_exec_ctx_text(t_slot[index])
+		elif(slot is Label):
+			txt = slot.text
+			print_debug(txt)
+			jser_reader.store_string(String(txt) + "\t")
+			jser_reader.flush()
+		elif(slot is OptionButton):
+			txt = slot.get_item_text(slot.selected)
+			print_debug(txt)
+			jser_reader.store_string(String(txt) + "\t")
+			jser_reader.flush()
+		elif(slot is SpinBox):
+			txt = slot.get_line_edit().text
+			print_debug(txt)
+			jser_reader.store_string(String(txt) + "\t")
+			jser_reader.flush()
+		elif((slot is LineEdit) || (slot is TextEdit)):
+			txt = slot.text
+			print_debug(slot.text)
+			jser_reader.store_string(String(txt) + "\t")
+			jser_reader.flush()
+		pass
 	pass
 
 func _find_entry():
