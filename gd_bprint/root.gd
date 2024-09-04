@@ -258,7 +258,9 @@ func _load(targets:Array):
 	pass
 
 func run():
-	_exec_ctx_text(PGL.current.get_child(0))
+	var text = _exec_ctx_text(PGL.current.get_child(0))
+	jser_reader.store_string(String(text) + "\n\n")
+	jser_reader.flush()
 	# var return_node:GraphNode = _find_entry()
 	# print_debug(editor.connection)
 	# print_debug(return_node)
@@ -285,22 +287,24 @@ func _exec_ctx_text(slot0:Control):
 	# var text1 = _ctx.ctx
 	# var text = text1 + "$f_"
 	print_debug(text)
-	jser_reader.store_string(text + '\t')
-	jser_reader.flush()
+	# jser_reader.store_string(text + '\t')
+	# jser_reader.flush()
 	var node = slot0.get_parent()
 	var deep_execes = RegEx.new()
 	deep_execes.compile("\\$[a-z_]+")
 	var ctx_keys = node.get_meta("ctx").keys()
 	var results = deep_execes.search_all(text)
 	for re in results:
-		var _name = re.get_string()
-		_name = _name.replace("$", "")
+		var _name1 = re.get_string()
+		var _name = _name1.replace("$", "")
 		var i = ctx_keys.find(_name)
 		if(i < 0):
+			text = text.replace(_name1, "")
 			continue
 		var slot:Control = node.get_child(i)
 		var ctx = slot.get_meta("ctx")
-		var txt
+		var txt = ""
+		# var _result
 		if(ctx.has("__to")):
 			var t_id = ctx.__to[0]
 			var index = ctx.__to[2]
@@ -308,28 +312,34 @@ func _exec_ctx_text(slot0:Control):
 			var children = t_node.get_children()
 			var temp1 = funcref(self, "_finder")
 			var t_slot = editor._array_filter(children, temp1, { "flow_id":1 })
-			_exec_ctx_text(t_slot[index])
+			txt = _exec_ctx_text(t_slot[index])
+			
 		elif(slot is Label):
 			txt = slot.text
-			print_debug(txt)
-			jser_reader.store_string(String(txt) + "\t")
-			jser_reader.flush()
+			# print_debug(txt)
+			# jser_reader.store_string(String(txt) + "\t")
+			# jser_reader.flush()
 		elif(slot is OptionButton):
 			txt = slot.get_item_text(slot.selected)
-			print_debug(txt)
-			jser_reader.store_string(String(txt) + "\t")
-			jser_reader.flush()
+			# print_debug(txt)
+			# jser_reader.store_string(String(txt) + "\t")
+			# jser_reader.flush()
 		elif(slot is SpinBox):
 			txt = slot.get_line_edit().text
-			print_debug(txt)
-			jser_reader.store_string(String(txt) + "\t")
-			jser_reader.flush()
+			# print_debug(txt)
+			# jser_reader.store_string(String(txt) + "\t")
+			# jser_reader.flush()
 		elif((slot is LineEdit) || (slot is TextEdit)):
 			txt = slot.text
-			print_debug(slot.text)
-			jser_reader.store_string(String(txt) + "\t")
-			jser_reader.flush()
+			# print_debug(slot.text)
+			# jser_reader.store_string(String(txt) + "\t")
+			# jser_reader.flush()
+		print_debug(text, txt)
+		text = text.replace(_name1, txt)
 		pass
+	
+	
+	return text
 	pass
 
 func _find_entry():
