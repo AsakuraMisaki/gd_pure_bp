@@ -1,0 +1,275 @@
+__invalid:
+  replacer: "undefined"
+
+__default:
+  f_:
+    flow: 2
+    slot: 2
+    type: label
+  i_:
+    flow: 0
+    slot: 0 
+    type: label
+  o_:
+    flow: 1
+    slot: 1 
+    type: label
+  btn_:
+    flow: 3
+    slot: 3
+    type: items
+
+__basic:
+  flow: 0
+  bool: 1
+  int: 2
+  float: 3
+  string: 4
+  Array: 2
+      
+# 特性
+featrues:
+  drag:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_default:
+      u_source: no_default
+  
+  scroll:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_touch:
+      u_source: no_touch
+    i_wheel:
+      u_source: no_wheel
+  
+  dynamic_grid:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_col:
+      u_source: col
+    i_line:
+      u_source: line
+  
+  dynamic_tree:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_tab:
+      u_source: tab
+  
+  dynamic_graph:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_line:
+      u_source: line
+  
+  dynamic:
+    i_source:
+      u_source: source
+
+  dynamic_item:
+    btn_add:
+      type: add
+      target: items
+  
+  cut:
+    i_x:
+      u_source: x
+    i_y:
+      u_source: y
+    i_width:
+      u_source: width
+    i_height:
+      u_source: height
+  
+  cut_tile:
+    i_index:
+      u_source: index
+    i_pw:
+      u_source: pw
+    i_ph:
+      u_source: ph
+
+  cut_pack_tex:
+    i_object:
+      u_source: object
+
+  scroll_bar:
+    i_window:
+      u_source: window
+    i_bar:
+      u_source: bar
+
+  size_flags:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_align_x:
+      u_source: align_x
+    i_align_y:
+      u_source: align_y
+    i_margin_x:
+      u_source: margin_x
+    i_margin_y:
+      u_source: margin_y
+  
+  style:
+    f_:
+      ctx: "$i_arr.forEach((item, i)=>{$f_body});\n"
+      slot: 1
+    i_color:
+      u_source: color
+    i_outline_color:
+      u_source: outline_color
+    i_outline_width:
+      u_source: outline_width
+    i_size:
+      u_source: size
+    i_align:
+      u_source: align
+
+# 基础类型
+advance:
+  
+  color:
+    o_value:
+      type: colorer
+  
+  string:
+    o_value:
+      type: string
+
+  number:
+    o_count:
+      type: string
+      ctx: "$o_count"
+  
+  array:
+    btn_add:
+      type: add
+      u_source: add
+      target: label
+
+  object:
+    btn_add:
+      type: add
+      u_source: add
+      target: string
+  
+  json:
+    i_source:
+      u_source: source
+    o_out:
+      u_source: out
+  
+  copy:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_source:
+      u_source: source
+
+  sign:
+    o_type:
+      type: items
+      u_source: ["undefined", "null", "true", "false", "In"]
+  
+  # 基础操作
+  op:
+    i_a:
+      u_source: "a"
+    o_op:
+      type: items
+      u_source: ["+", "-", "/", "%", "*"]
+      ctx: "$i_a $o_op $i_b"
+    i_b:
+      u_source: "b"
+
+base:
+
+  __ENTRY:
+    f_:
+      slot: 1
+
+  window:
+    f_:
+      ctx: "if($i_con){$f_true}else{$f_false};\n"
+      slot: 1
+    i_x:
+      u_source: x
+    i_y:
+      u_source: "y"
+    i_width:
+      u_source: width
+    i_height:
+      u_source: height
+    i_children:
+      u_source: children
+    i_featrues:
+      u_source: featrues
+  
+  sprite:
+    f_:
+      ctx: "for(let item in $i_object){$f_body};\n"
+      slot: 1
+    i_x:
+      u_source: x
+    i_y:
+      u_source: "y"
+    i_width:
+      u_source: width
+    i_height:
+      u_source: height
+    i_anchor_x:
+      u_source: anchor_x
+    i_anchor_y:
+      u_source: anchor_y
+    i_url:
+      u_source: url
+    i_children:
+      u_source: children
+    i_featrues:
+      u_source: featrues
+
+  graphics:
+    i_x:
+      u_source: x
+    i_y:
+      u_source: "y"
+    i_width:
+      u_source: width
+    i_height:
+      u_source: height
+    btn_type:
+      u_source: ["circle", "rect", "roundrect"]
+    i_radius:
+      u_source: radius
+    i_round:
+      u_source: round
+      
+  text:
+    f_:
+      ctx: "$i_arr.forEach((item, i)=>{$f_body});\n"
+      slot: 1
+    i_x:
+      u_source: x
+    i_y:
+      u_source: "y"
+    i_anchor_x:
+      u_source: anchor_x
+    i_anchor_y:
+      u_source: anchor_y
+    i_children:
+      u_source: children
+    i_featrues:
+      u_source: featrues
+
+  
+  
+
+    

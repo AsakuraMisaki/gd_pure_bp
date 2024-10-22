@@ -1,8 +1,3 @@
-signal copy
-signal paste
-signal select
-signal un_select
-
 extends MyEdit
 
 onready var tab:TabContainer = get_node("work/TabContainer")

@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://editor.gd" type="Script" id=1]
+[ext_resource path="res://root.gd" type="Script" id=2]
+[ext_resource path="res://buildContext.gd" type="Script" id=3]
+[ext_resource path="res://node.tscn" type="PackedScene" id=4]
+[ext_resource path="res://res/graph_theme.tres" type="Theme" id=5]
+[ext_resource path="res://res/popmenu.tscn" type="PackedScene" id=6]
+
+[node name="EditorScene" type="Node2D"]
+script = ExtResource( 2 )
+key_theme = ExtResource( 5 )
+r_popmenu = ExtResource( 6 )
+r_basic = ExtResource( 4 )
+duplicate_scene_path = "res"
+saver = "res://saved/all.yaml"
+jser = "res://saved/all.js"
+
+[node name="work" type="HSplitContainer" parent="."]
+margin_right = 1900.0
+margin_bottom = 640.0
+__meta__ = {
+"custom_editor_meta": "#name:"
+}
+
+[node name="TabContainer" type="TabContainer" parent="work"]
+margin_right = 1577.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+tab_align = 2
+__meta__ = {
+"custom_editor_meta": "#name:value1"
+}
+
+[node name="GraphEdit" type="GraphEdit" parent="work/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+right_disconnects = true
+scroll_offset = Vector2( -4, -24 )
+snap_distance = 5
+show_zoom_label = true
+minimap_size = Vector2( 200, 120 )
+script = ExtResource( 1 )
+res_builder = ExtResource( 3 )
+
+[node name="env" type="RichTextLabel" parent="work/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 24.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="work"]
+margin_left = 1589.0
+margin_right = 1900.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="debug" type="RichTextLabel" parent="work/HBoxContainer"]
+margin_right = 311.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+text = "[debug]"
+
+[node name="save" type="Button" parent="."]
+margin_right = 41.0
+margin_bottom = 20.0
+text = "save"
+
+[node name="run" type="Button" parent="."]
+margin_left = 58.0
+margin_top = 1.0
+margin_right = 99.0
+margin_bottom = 21.0
+text = "run"
+
+[node name="load" type="Button" parent="."]
+margin_left = 114.0
+margin_top = 1.0
+margin_right = 155.0
+margin_bottom = 21.0
+text = "load"
+
+[connection signal="connection_request" from="work/TabContainer/GraphEdit" to="work/TabContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
+[connection signal="copy_nodes_request" from="work/TabContainer/GraphEdit" to="." method="_on_copy_nodes_request"]
+[connection signal="disconnection_request" from="work/TabContainer/GraphEdit" to="work/TabContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
+[connection signal="node_selected" from="work/TabContainer/GraphEdit" to="." method="_on_node_selected"]
+[connection signal="node_unselected" from="work/TabContainer/GraphEdit" to="." method="_on_node_unselected"]
+[connection signal="paste_nodes_request" from="work/TabContainer/GraphEdit" to="." method="_on_paste_nodes_request"]
+[connection signal="popup_request" from="work/TabContainer/GraphEdit" to="." method="_popmenu_request"]
