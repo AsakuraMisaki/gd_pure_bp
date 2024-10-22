@@ -41,6 +41,7 @@ func _ready():
 	save_btn.connect("button_down", self, "save")
 	load_btn.connect("button_down", self, "load")
  
+	popmenu._refresh("")
 	# side.add_child(popmenu)
 	# popmenu.s
 	# _setup_entry()
@@ -65,7 +66,9 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 	var flow_ctx:Dictionary = Dictionary()
 	var __id = Time.get_ticks_msec()
 	var vp:Viewport = get_viewport()
-	var point:Vector2 = vp.get_mouse_position()
+	var point:Vector2 = editor.scroll_offset
+	point.x += 200
+	point.y += 200
 	var node:GraphNode = _create_node_common(ctx, __id, flow_ctx, name, point)
 	editor.add_child(node)
 	

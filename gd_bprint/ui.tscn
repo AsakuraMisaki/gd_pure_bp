@@ -13,6 +13,7 @@ key_theme = ExtResource( 5 )
 r_popmenu = ExtResource( 6 )
 r_basic = ExtResource( 4 )
 duplicate_scene_path = "res"
+saver = "res://saved/all.yaml"
 
 [node name="work" type="HSplitContainer" parent="."]
 margin_right = 1900.0
@@ -38,7 +39,7 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 right_disconnects = true
-scroll_offset = Vector2( -122, -24 )
+scroll_offset = Vector2( -4, -24 )
 snap_distance = 5
 show_zoom_label = true
 minimap_size = Vector2( 200, 120 )
