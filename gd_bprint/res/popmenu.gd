@@ -92,7 +92,10 @@ func _on_search_text_changed(new_text:String):
 func _on_Tree_item_activated():
 	var item:TreeItem = tree.get_selected()
 	print_debug(item)
-	var context:Dictionary = item.get_meta("context")
+	var has:bool = item.has_meta("context")
+	if(!has):
+		return
+	var context = item.get_meta("context")
 	if(context):
 		# var node:GraphNode = PackedEnv._makeGraphNode(context)
 		emit_signal("node_created", context, item)

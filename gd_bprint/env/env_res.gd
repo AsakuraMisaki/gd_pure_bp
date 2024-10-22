@@ -8,7 +8,7 @@ var search:Tree
 var contextDic: Dictionary = Dictionary()
 var basic: Dictionary = Dictionary()
 onready var cfile:File = File.new()
-onready var cfile_ok:int = cfile.open("res://env/javascript/main.yaml", File.READ)
+onready var cfile_ok:int = cfile.open("res://env/pixijs/main.yaml", File.READ)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,7 +38,8 @@ func _ready():
 		# "Math", "JSON", "Number", "Object", "Date", "RegExp", "ArrayConstructor"
 		var targets:Dictionary = _getInterface(dic, 
 								["Array", "Number"])
-		contextDic.merge(targets)
+		# merge t.js上下文
+		# contextDic.merge(targets)
 		file.close()
 		pass
 	# print_debug(contextDic)
@@ -162,17 +163,24 @@ func _getInterface(dic:Dictionary, targets:Array = []) -> Dictionary:
 # 		_merge_(item, default_ctx)
 # 		pass
 
-func _merge_item(ctx:Dictionary, default_ctx:Dictionary):
+func _merge_item(ctx:Dictionary, default_ctx:Dictionary, re):
 	for key in ctx:
+		if(re.search(key)):
+			continue
 		var item = ctx[key]
+		var find = -1
 		for key1 in default_ctx:
 			var t_ctx = default_ctx[key1]
-			var find = key.find(key1) 
+			find = key.find(key1) 
 			# print_debug(find, item, key1, key)
 			if(find==0):
 				item.merge(t_ctx)
 				print_debug(item)
 				break
+			pass
+		if(find==-1):
+			_merge_item(item, default_ctx, re)
+		else:
 			pass
 		# print_debug(item)
 		pass
@@ -184,11 +192,7 @@ func _prepareCoreCtx():
 	var default_ctx = basic.__default
 	var re:RegEx = RegEx.new()
 	re.compile("^__")
-	var main = basic.main
-	for key in main:
-		var item = main[key]
-		_merge_item(item, default_ctx)
-		pass
+	_merge_item(basic, default_ctx, re)
 	# _merge_item(basic.main__ENTRY, default_ctx)
 	# merge_basic(re, basic, default_ctx)
 	contextDic.merge(basic)	

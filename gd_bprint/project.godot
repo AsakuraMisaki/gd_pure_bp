@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gd_bprint"
-run/main_scene="res://block.tscn"
+run/main_scene="res://ui.tscn"
 config/use_hidden_project_data_directory=false
 config/icon="res://icon.png"
 

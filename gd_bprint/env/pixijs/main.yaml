@@ -28,7 +28,7 @@ __basic:
   Array: 2
       
 # 特性
-featrues:
+features:
   drag:
     f_:
       ctx: "if($i_con){$f_true}else{$f_false};\n"
@@ -73,6 +73,8 @@ featrues:
       u_source: source
 
   dynamic_item:
+    i_key:
+      u_source: key
     btn_add:
       type: add
       target: items
@@ -81,7 +83,7 @@ featrues:
     i_x:
       u_source: x
     i_y:
-      u_source: y
+      u_source: "y"
     i_width:
       u_source: width
     i_height:
@@ -95,7 +97,7 @@ featrues:
     i_ph:
       u_source: ph
 
-  cut_pack_tex:
+  cut_object:
     i_object:
       u_source: object
 
@@ -105,7 +107,7 @@ featrues:
     i_bar:
       u_source: bar
 
-  size_flags:
+  size_flag:
     f_:
       ctx: "if($i_con){$f_true}else{$f_false};\n"
       slot: 1
@@ -117,6 +119,22 @@ featrues:
       u_source: margin_x
     i_margin_y:
       u_source: margin_y
+  
+  graphics_circle:
+    i_radius:
+      u_source: radius
+    i_angle_start:
+      u_source: angle_start
+    i_angle_end:
+      u_source: angle_end
+  
+  graphics_rect:
+    i_width:
+      u_source: width
+    i_height:
+      u_source: height
+    i_round:
+      u_source: round
   
   style:
     f_:
@@ -132,8 +150,24 @@ featrues:
       u_source: size
     i_align:
       u_source: align
+  
+  mask:
+    i_mask:
+      u_source: mask
 
-# 基础类型
+  anchor:
+    i_x:
+      u_source: x
+    i_y:
+      u_source: "y"
+
+  note:
+    i_name:
+      u_source: name
+    i_any:
+      u_source: any
+    
+# 高级配置
 advance:
   
   color:
@@ -179,7 +213,6 @@ advance:
       type: items
       u_source: ["undefined", "null", "true", "false", "In"]
   
-  # 基础操作
   op:
     i_a:
       u_source: "a"
@@ -189,8 +222,46 @@ advance:
       ctx: "$i_a $o_op $i_b"
     i_b:
       u_source: "b"
+  
+  tween:
+    i_a:
+      u_source: a
+    i_b:
+      u_source: b
+    i_time:
+      u_source: time
+    i_auto:
+      u_source: auto
+    i_auto_delay:
+      u_source: auto_delay
+    i_lerp:
+      u_source: lerp
+  
+  vec2:
+    i_x:
+      u_source: x
+    i_y:
+      u_source: "y"
+  
+  # 没有直接配置到节点中的函数可以通过这种方式调用, 通常只能是静态/非实例函数
+  fn:
+    i_name:
+      u_source: name
+    i_args:
+      u_source: args
+  
+  
+
 
 base:
+
+  output:
+    i_output:
+      u_source: output
+    i_global:
+      u_source: global_ref
+    i_hot_refresh:
+      u_source: hot_refresh
 
   __ENTRY:
     f_:
@@ -208,10 +279,12 @@ base:
       u_source: width
     i_height:
       u_source: height
+    i_alpha:
+      u_source: alpha
     i_children:
       u_source: children
-    i_featrues:
-      u_source: featrues
+    i_features:
+      u_source: features
   
   sprite:
     f_:
@@ -225,32 +298,26 @@ base:
       u_source: width
     i_height:
       u_source: height
-    i_anchor_x:
-      u_source: anchor_x
-    i_anchor_y:
-      u_source: anchor_y
-    i_url:
-      u_source: url
+    i_alpha:
+      u_source: alpha
+    i_tex:
+      u_source: tex
     i_children:
       u_source: children
-    i_featrues:
-      u_source: featrues
+    i_features:
+      u_source: features
 
   graphics:
     i_x:
       u_source: x
     i_y:
       u_source: "y"
-    i_width:
-      u_source: width
-    i_height:
-      u_source: height
-    btn_type:
-      u_source: ["circle", "rect", "roundrect"]
-    i_radius:
-      u_source: radius
-    i_round:
-      u_source: round
+    i_alpha:
+      u_source: alpha
+    i_children:
+      u_source: children
+    i_features:
+      u_source: features
       
   text:
     f_:
@@ -260,14 +327,12 @@ base:
       u_source: x
     i_y:
       u_source: "y"
-    i_anchor_x:
-      u_source: anchor_x
-    i_anchor_y:
-      u_source: anchor_y
+    i_alpha:
+      u_source: alpha
     i_children:
       u_source: children
-    i_featrues:
-      u_source: featrues
+    i_features:
+      u_source: features
 
   
   

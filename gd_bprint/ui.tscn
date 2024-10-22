@@ -13,8 +13,6 @@ key_theme = ExtResource( 5 )
 r_popmenu = ExtResource( 6 )
 r_basic = ExtResource( 4 )
 duplicate_scene_path = "res"
-saver = "res://saved/all.yaml"
-jser = "res://saved/all.js"
 
 [node name="work" type="HSplitContainer" parent="."]
 margin_right = 1900.0
@@ -24,7 +22,7 @@ __meta__ = {
 }
 
 [node name="TabContainer" type="TabContainer" parent="work"]
-margin_right = 1577.0
+margin_right = 1455.0
 margin_bottom = 640.0
 size_flags_horizontal = 3
 tab_align = 2
@@ -40,7 +38,7 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 right_disconnects = true
-scroll_offset = Vector2( -4, -24 )
+scroll_offset = Vector2( -122, -24 )
 snap_distance = 5
 show_zoom_label = true
 minimap_size = Vector2( 200, 120 )
@@ -56,15 +54,20 @@ margin_top = 24.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="work"]
-margin_left = 1589.0
+[node name="side" type="HBoxContainer" parent="work"]
+margin_left = 1467.0
 margin_right = 1900.0
 margin_bottom = 640.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.3
 
-[node name="debug" type="RichTextLabel" parent="work/HBoxContainer"]
-margin_right = 311.0
+[node name="menu" parent="work/side" instance=ExtResource( 6 )]
+margin_right = 214.0
+margin_bottom = 640.0
+
+[node name="debug" type="RichTextLabel" parent="work/side"]
+margin_left = 218.0
+margin_right = 433.0
 margin_bottom = 640.0
 size_flags_horizontal = 3
 text = "[debug]"

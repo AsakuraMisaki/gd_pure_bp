@@ -56,14 +56,19 @@ margin_top = 24.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="work"]
+[node name="side" type="HBoxContainer" parent="work"]
 margin_left = 1589.0
 margin_right = 1900.0
 margin_bottom = 640.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="debug" type="RichTextLabel" parent="work/HBoxContainer"]
+[node name="menu" parent="work/side" instance=ExtResource( 6 )]
+margin_right = 153.0
+margin_bottom = 640.0
+
+[node name="debug" type="RichTextLabel" parent="work/side"]
+margin_left = 157.0
 margin_right = 311.0
 margin_bottom = 640.0
 size_flags_horizontal = 3

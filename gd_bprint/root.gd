@@ -1,7 +1,8 @@
 extends MyEdit
 
 onready var tab:TabContainer = get_node("work/TabContainer")
-onready var debuger:RichTextLabel = get_node("work/HBoxContainer/debug")
+onready var debuger:RichTextLabel = get_node("work/side/debug")
+onready var side:HBoxContainer = get_node("work/side")
 onready var editor:GraphEdit = get_node("work/TabContainer/GraphEdit")
 onready var run_btn:Button = get_node("run")
 onready var save_btn:Button = get_node("save")
@@ -22,7 +23,7 @@ onready var jfile_ok:int = jser_reader.open(jser, File.READ_WRITE)
 
 
 
-onready var popmenu:Node = r_popmenu.instance()
+onready var popmenu:Node = get_node("work/side/menu")
 onready var basic:Node = r_basic.instance()
 # var entry:GraphNode
 # Declare member variables here. Examples:
@@ -39,7 +40,10 @@ func _ready():
 	run_btn.connect("button_down", self, "run")
 	save_btn.connect("button_down", self, "save")
 	load_btn.connect("button_down", self, "load")
-	_setup_entry()
+ 
+	# side.add_child(popmenu)
+	# popmenu.s
+	# _setup_entry()
 	# _readyBasic()
 	pass # Replace with function body.
 
@@ -123,7 +127,9 @@ func _input(event):
 	# 		self.add_child(popmenu)
 	pass
 
+# 右键菜单
 func _popmenu_request(point:Vector2):
+	return
 	popmenu.set_position(point)
 	if(!(self.get_children().has(popmenu))):
 		self.add_child(popmenu)
