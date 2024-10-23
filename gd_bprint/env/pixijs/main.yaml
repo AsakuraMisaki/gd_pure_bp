@@ -24,26 +24,32 @@ __basic:
   string: 4
   Array: 2 
 
-bridge:
-  U:
+R:
+  A..B=R:
     o_to:
-      u_source: to
-    i_start:
+      u_source: R
+    i_A:
       type: counter
-      u_source: start
-    i_end:
+      u_source: A
+    i_B:
       type: counter
-      u_source: end
-    i_auto:
-      u_source: auto
-  A:
+      u_source: B
+    i_R:
+      u_source: R
+  A=R:
     o_to:
-      u_source: to
-    i_prop:
+      u_source: R
+    i_A:
       type: string
-      u_source: prop
-    i_auto:
-      u_source: auto
+      u_source: A
+    i_R:
+      u_source: R
+  R=A:
+    o_R:
+      u_source: R
+    i_A:
+      type: string
+      u_source: A
       
 # 特性
 features:
@@ -91,8 +97,8 @@ features:
       u_source: layout
     i_source:
       u_source: source
-    i_dataer:
-      u_source: A
+    i_R:
+      u_source: R
   
   cut:
     o_dist:
