@@ -1,51 +1,46 @@
-extends MyEdit
+extends Node2D
 
-onready var tab:TabContainer = get_node("work/TabContainer")
+
+export(Theme) var key_theme:Theme
+export(PackedScene) var env:PackedScene
+export(PackedScene) var r_basic:PackedScene 
+
+# onready var saver_reader = File.new()
+# onready var sfile_ok:int = saver_reader.open(saver, File.READ_WRITE)
+# onready var save_data = PGL.yaml.parse(saver_reader.get_as_text())
+# onready var jser_reader = File.new()
+# onready var jfile_ok:int = jser_reader.open(jser, File.READ_WRITE)
+
+var copyed: Array = Array()
+var selects: Array = Array()
+var config: Dictionary = Dictionary()
+var selecteds: Array = Array()
+var current: GraphNode
+
+onready var tab:TabContainer = get_node("work/main")
 onready var debuger:RichTextLabel = get_node("work/side/debug")
 onready var side:HBoxContainer = get_node("work/side")
-onready var editor:GraphEdit = get_node("work/TabContainer/GraphEdit")
+onready var editor:GraphEdit = get_node("work/main/GraphEdit")
 onready var run_btn:Button = get_node("run")
 onready var save_btn:Button = get_node("save")
 onready var load_btn:Button = get_node("load")
-
-export(Theme) var key_theme:Theme
-export(Resource) var env:Resource
-export(PackedScene) var r_popmenu:PackedScene 
-export(PackedScene) var r_basic:PackedScene 
-export(String) var duplicate_scene_path:String
-export(String) var saver:String
-export(String) var jser:String
-onready var saver_reader = File.new()
-onready var sfile_ok:int = saver_reader.open(saver, File.READ_WRITE)
-onready var save_data = PGL.yaml.parse(saver_reader.get_as_text())
-onready var jser_reader = File.new()
-onready var jfile_ok:int = jser_reader.open(jser, File.READ_WRITE)
-
-
-
-onready var popmenu:Node = get_node("work/side/menu")
+onready var ctxmenu:Node = get_node("work/side/menu")
 onready var basic:Node = r_basic.instance()
-# var entry:GraphNode
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
 var debug_mes = "\n \t {mes}"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	popmenu.connect("node_created", self, "on_popmenu_node_created")
-	# editor.connect("connection_to_empty", self, "on_connection_to_empty")
-	run_btn.connect("button_down", self, "run")
-	save_btn.connect("button_down", self, "save")
-	load_btn.connect("button_down", self, "load")
+	ctxmenu.connect("node_created", self, "on_popmenu_node_created")
+
+	# run_btn.connect("button_down", env, "run")
+	# save_btn.connect("button_down", env, "save")
+	# load_btn.connect("button_down", env, "load")
  
-	popmenu._refresh("")
-	# side.add_child(popmenu)
-	# popmenu.s
-	# _setup_entry()
-	# _readyBasic()
+	ctxmenu._refresh("")
+
 	pass # Replace with function body.
 
 
@@ -53,12 +48,12 @@ func _create_ports(name:String)->Node:
 	var port:Control = basic.get_node("ports/"+name)
 	return port.duplicate()
 
-func _setup_entry():
-	var point = Vector2(100, 100)
-	var node:GraphNode = _create_node_common(PackedEnv.contextDic.main.__ENTRY, "__ENTRY", {}, "__ENTRY", point)
-	editor.add_child(node)
-	editor.set_meta("entry", node)
-	pass
+# func _setup_entry():
+# 	var point = Vector2(100, 100)
+# 	var node:GraphNode = _create_node_common(PackedEnv.contextDic.main.__ENTRY, "__ENTRY", {}, "__ENTRY", point)
+# 	editor.add_child(node)
+# 	editor.set_meta("entry", node)
+# 	pass
 
 func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 	print_debug(ctx)
@@ -71,7 +66,6 @@ func on_popmenu_node_created(ctx:Dictionary, item:TreeItem):
 	point.y += 200
 	var node:GraphNode = _create_node_common(ctx, __id, flow_ctx, name, point)
 	editor.add_child(node)
-	
 	pass
 
 func _create_node_common(ctx, id, node_ctx, title, point)->GraphNode:
@@ -130,21 +124,12 @@ func _input(event):
 	# 		self.add_child(popmenu)
 	pass
 
-# 右键菜单
-func _popmenu_request(point:Vector2):
-	return
-	popmenu.set_position(point)
-	if(!(self.get_children().has(popmenu))):
-		self.add_child(popmenu)
-	else:
-		self.remove_child(popmenu)
-	pass
 
-func _process(delta):
-	if(PGL.debugs.size()):
-		write_debug(PGL.debugs.pop_front())
-	# prints(PGL.selecteds.size(), PGL.selecteds)
-	pass
+# func _process(delta):
+# 	if(PGL.debugs.size()):
+# 		write_debug(PGL.debugs.pop_front())
+# 	# prints(PGL.selecteds.size(), PGL.selecteds)
+# 	pass
 
 func _on_copy_nodes_request():
 	._copy_nodes_request()
@@ -186,70 +171,92 @@ func write_debug(mes:String):
 	pass
 
 
-func save():
-	var children = editor.get_children()
-	var targets = {}
-	for node in children:
-		if(!(node is GraphNode)): continue
-		var id = node.get_meta("__id")
-		var title = node.title
-		var offset = node.get_offset()
-		offset = [offset.x, offset.y]
-		var ctx = node.get_meta("ctx")
-		targets[id] = { "title":title, "offset":offset, "ctx":ctx, "__id":id }
-		pass
-	var uid = Time.get_datetime_string_from_system()
-	var saved = {uid:targets}
-	var result = PGL.yaml.print(saved)
-	print_debug(result)
-	var _pre = saver_reader.get_as_text()
-	_pre += result + "\n"
-	saver_reader.store_string(result + "\n")
-	saver_reader.flush()
-	pass
+# func save():
+# 	var children = editor.get_children()
+# 	var targets = {}
+# 	for node in children:
+# 		if(!(node is GraphNode)): continue
+# 		var id = node.get_meta("__id")
+# 		var title = node.title
+# 		var offset = node.get_offset()
+# 		offset = [offset.x, offset.y]
+# 		var ctx = node.get_meta("ctx")
+# 		targets[id] = { "title":title, "offset":offset, "ctx":ctx, "__id":id }
+# 		pass
+# 	var uid = Time.get_datetime_string_from_system()
+# 	var saved = {uid:targets}
+# 	var result = PGL.yaml.print(saved)
+# 	print_debug(result)
+# 	var _pre = saver_reader.get_as_text()
+# 	_pre += result + "\n"
+# 	saver_reader.store_string(result + "\n")
+# 	saver_reader.flush()
+# 	pass
 
-func load():
-	save_data = PGL.yaml.parse(saver_reader.get_as_text()).result
-	print_debug(save_data)
+# func load():
+# 	save_data = PGL.yaml.parse(saver_reader.get_as_text()).result
+# 	print_debug(save_data)
 	
-	for name in save_data:
-		var temp = Dictionary()
-		var data = save_data[name]
-		for id in data:
-			var item = data[id]
-			var node:GraphNode = create_node_by_saved(item, item.title)
-			temp[id] = node
-			node.name = id
-			# print_debug(temp)
-			pass
-		# print_debug(temp["16018"])
-		for id1 in temp:
-			var g_node = temp[id1]
-			var name_from = g_node.name
-			var children = g_node.get_children()
-			for slot in children:
-				var ctx = slot.get_meta("ctx")
-				var __to = ctx.get("__to", null)
-				var flow_id = ctx.flow
-				var temp1 = funcref(self, "_finder")
-				var _children = editor._array_filter(children, temp1, {"flow_id":flow_id})
-				var slot_from = _children.find(slot)
-				if(__to):
-					var ptr_to0 = __to[0]
-					# print_debug(temp["16018"], temp, __to[0])
-					var toer = temp[String(ptr_to0)]
-					var name_to = toer.name
-					var slot_to = __to[2]
-					if(ctx.flow == 0):
-						editor.connect_node(name_to, slot_to, name_from, slot_from)
-					else:
-						editor.connect_node(name_from, slot_from, name_to, slot_to)
-				pass
-			pass
-		# temp.clear()
-		pass
+# 	for name in save_data:
+# 		var temp = Dictionary()
+# 		var data = save_data[name]
+# 		for id in data:
+# 			var item = data[id]
+# 			var node:GraphNode = create_node_by_saved(item, item.title)
+# 			temp[id] = node
+# 			node.name = id
+# 			# print_debug(temp)
+# 			pass
+# 		# print_debug(temp["16018"])
+# 		for id1 in temp:
+# 			var g_node = temp[id1]
+# 			var name_from = g_node.name
+# 			var children = g_node.get_children()
+# 			for slot in children:
+# 				var ctx = slot.get_meta("ctx")
+# 				var __to = ctx.get("__to", null)
+# 				var flow_id = ctx.flow
+# 				var temp1 = funcref(self, "_finder")
+# 				var _children = editor._array_filter(children, temp1, {"flow_id":flow_id})
+# 				var slot_from = _children.find(slot)
+# 				if(__to):
+# 					var ptr_to0 = __to[0]
+# 					# print_debug(temp["16018"], temp, __to[0])
+# 					var toer = temp[String(ptr_to0)]
+# 					var name_to = toer.name
+# 					var slot_to = __to[2]
+# 					if(ctx.flow == 0):
+# 						editor.connect_node(name_to, slot_to, name_from, slot_from)
+# 					else:
+# 						editor.connect_node(name_from, slot_from, name_to, slot_to)
+# 				pass
+# 			pass
+# 		# temp.clear()
+# 		pass
 	
-	pass
+# 	pass
+
+# func run():
+# 	var text = _exec_ctx_text(PGL.current.get_child(0))
+# 	jser_reader.store_string(String(text) + "\n\n")
+# 	jser_reader.flush()
+# 	# var return_node:GraphNode = _find_entry()
+# 	# print_debug(editor.connection)
+# 	# print_debug(return_node)
+# 	# if(!return_node):
+# 	# 	print_debug("run invaild")
+# 	# 	return
+# 	# _run(return_node)
+# 	pass
+
+# func _run(node:GraphNode):
+	
+
+# 	pass
+
+# func _load(targets:Array):
+
+# 	pass
 
 static func _finder(item, options):
 	var ctx = item.get_meta("ctx") 
@@ -257,27 +264,9 @@ static func _finder(item, options):
 		return true
 	return false
 
-func _load(targets:Array):
-	
-	pass
 
-func run():
-	var text = _exec_ctx_text(PGL.current.get_child(0))
-	jser_reader.store_string(String(text) + "\n\n")
-	jser_reader.flush()
-	# var return_node:GraphNode = _find_entry()
-	# print_debug(editor.connection)
-	# print_debug(return_node)
-	# if(!return_node):
-	# 	print_debug("run invaild")
-	# 	return
-	# _run(return_node)
-	pass
 
-func _run(node:GraphNode):
-	
 
-	pass
 
 func _exec_ctx_text(slot0:Control):
 	# $i_arr.forEach((item, i)=>{$f_body});
@@ -382,6 +371,50 @@ func __find_entry(entry_slot):
 			# self.set_meta("temp_node", temp_node)
 			return __find_entry(slot)
 		pass
+	pass
+
+	func _paste_nodes_request(tab:GraphEdit):
+		var vp:Viewport = get_viewport()
+		var point:Vector2 = vp.get_mouse_position()
+		var offset:Array = [0, 0]
+		var ox:int = 100
+		var oy:int = 50
+		for item in PGL.selecteds:
+			item = item as GraphNode
+			var newNode:GraphNode = item.duplicate(8)
+			var v: Vector2 = Vector2(offset[0] + point.x, offset[1] + point.y)
+			newNode.set_offset(v)
+			newNode.remove_meta('id')
+			tab.add_child(newNode)
+			offset[0] += ox
+			offset[1] += oy
+			pass
+		pass
+	
+func _copy_nodes_request():
+	PGL.selecteds = PGL.selects.duplicate(false)
+	print(PGL.selecteds)
+
+func _unselected(node:Node):
+	PGL.selects.erase(node)
+
+func _selected(node:Node):
+	PGL.current = node
+	var has:bool = PGL.selects.has(node)
+	if(has): return
+	# print(node.id)
+	if (not(node.has_meta('id'))):
+		node.set_meta('id', Time.get_ticks_msec())
+	PGL.selects.append(node)
+	
+	print(node.get_meta('id'))
+
+func _node_delete(tab:GraphEdit, node:Node):
+	tab.remove_child(node)
+	pass
+
+func _get_code(node:GraphNode):
+	
 	pass
 
 

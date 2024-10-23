@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "MyEdit",
 "language": "GDScript",
-"path": "res://editBase.gd"
+"path": "res://editor/editorBase.gd"
 } ]
 _global_script_class_icons={
 "MyEdit": ""
@@ -21,15 +21,13 @@ _global_script_class_icons={
 [application]
 
 config/name="gd_bprint"
-run/main_scene="res://ui.tscn"
+run/main_scene="res://editor/editor.tscn"
 config/use_hidden_project_data_directory=false
 config/icon="res://icon.png"
 
 [autoload]
 
-PGL="*res://global.gd"
-EditBase="*res://editBase.gd"
-PackedEnv="*res://env/packed_env.tscn"
+PGL="*res://editor/global.gd"
 
 [debug]
 

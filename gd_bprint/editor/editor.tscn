@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://editor/editor.gd" type="Script" id=1]
+[ext_resource path="res://res/theme/graph_theme.tres" type="Theme" id=3]
+[ext_resource path="res://res/node.tscn" type="PackedScene" id=4]
+[ext_resource path="res://res/popmenu.tscn" type="PackedScene" id=6]
+
+[node name="EditorScene" type="Node2D"]
+script = ExtResource( 1 )
+key_theme = ExtResource( 3 )
+r_basic = ExtResource( 4 )
+env_0 = "pixijs"
+
+[node name="work" type="HSplitContainer" parent="."]
+margin_right = 1900.0
+margin_bottom = 640.0
+__meta__ = {
+"custom_editor_meta": "#name:"
+}
+
+[node name="main" type="TabContainer" parent="work"]
+margin_right = 1455.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+tab_align = 2
+__meta__ = {
+"custom_editor_meta": "#name:value1"
+}
+
+[node name="GraphEdit" type="GraphEdit" parent="work/main"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+right_disconnects = true
+scroll_offset = Vector2( -4, -24 )
+
+[node name="env" type="RichTextLabel" parent="work/main"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="side" type="HBoxContainer" parent="work"]
+margin_left = 1467.0
+margin_right = 1900.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="menu" parent="work/side" instance=ExtResource( 6 )]
+margin_right = 214.0
+margin_bottom = 640.0
+
+[node name="debug" type="RichTextLabel" parent="work/side"]
+margin_left = 218.0
+margin_right = 433.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+text = "[debug]"
+
+[node name="save" type="Button" parent="."]
+margin_right = 41.0
+margin_bottom = 20.0
+text = "save"
+
+[node name="run" type="Button" parent="."]
+margin_left = 58.0
+margin_top = 1.0
+margin_right = 99.0
+margin_bottom = 21.0
+text = "run"
+
+[node name="load" type="Button" parent="."]
+margin_left = 114.0
+margin_top = 1.0
+margin_right = 155.0
+margin_bottom = 21.0
+text = "load"

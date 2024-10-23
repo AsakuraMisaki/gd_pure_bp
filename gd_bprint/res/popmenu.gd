@@ -3,25 +3,9 @@ extends Panel
 onready var tree:Tree = get_node("Tree")
 onready var search:LineEdit = get_node("search")
 
-signal node_created
+var contextDic:Dictionary
 
-func _input(event):
-	
-	if(event.is_action_pressed("add_graph_node")):
-		var item:TreeItem = tree.get_selected()
-		if(!item): return
-		# var gr:Rect2 = tree.get_global_rect()
-		# var area:Rect2 = tree.get_item_area_rect(item)
-		# var a2:Rect2 = Rect2(gr.position + area.position, area.size)
-		# var tarRec:Rect2 = gr.clip(a2)
-		# prints(gr, a2, tarRec)
-		# prints(tarRec.has_point(event.position))
-	else:
-		pass
-		# var item:TreeItem = tree.get_next_selected(null)
-		# print_debug(item)
-	
-	pass
+signal node_created
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,7 +17,9 @@ func _ready():
 	pass # Replace with function body.
 
 func _refresh(text:String):
-	var obj:Dictionary = PackedEnv.contextDic
+	if(!contextDic):
+		return
+	var obj:Dictionary = contextDic
 	var targetobj:Dictionary = dofilter(text)
 	tree.clear()
 	var root = tree.create_item()
@@ -41,7 +27,8 @@ func _refresh(text:String):
 	var re:RegEx = RegEx.new()
 	re.compile("^__")
 	for name in targetobj:
-		if(re.search(name)): continue
+		if(re.search(name) || (name.find("$") == 0)): 
+			continue
 		var items:Dictionary = targetobj[name]
 		var second = tree.create_item(root)
 		second.set_text(0, name)
@@ -56,7 +43,7 @@ func _refresh(text:String):
 
 
 func dofilter(text:String) -> Dictionary:
-	var obj:Dictionary = PackedEnv.contextDic
+	var obj:Dictionary = contextDic
 	if(!text.length()): return obj
 	var targetobj:Dictionary = {}
 	var reg = RegEx.new()

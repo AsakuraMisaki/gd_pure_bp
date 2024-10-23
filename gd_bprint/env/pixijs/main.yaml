@@ -2,10 +2,7 @@ __invalid:
   replacer: "undefined"
 
 __default:
-  f_:
-    flow: 2
-    slot: 2
-    type: label
+  # slot: 2 左右端都有接口
   i_:
     flow: 0
     slot: 0 
@@ -25,150 +22,211 @@ __basic:
   int: 2
   float: 3
   string: 4
-  Array: 2
+  Array: 2 
+
+bridge:
+  U:
+    o_to:
+      u_source: to
+    i_start:
+      type: counter
+      u_source: start
+    i_end:
+      type: counter
+      u_source: end
+    i_auto:
+      u_source: auto
+  A:
+    o_to:
+      u_source: to
+    i_prop:
+      type: string
+      u_source: prop
+    i_auto:
+      u_source: auto
       
 # 特性
 features:
   drag:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
-    i_default:
-      u_source: no_default
+    o_dist:  
+      u_source: ""
+    btn_default:
+      type: items
+      u_source: ["true", "false"]
   
   scroll:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
+    o_dist:
+      u_source: ""
     i_touch:
-      u_source: no_touch
+      type: items
+      u_source: ["true", "false"]
     i_wheel:
-      u_source: no_wheel
+      type: items
+      u_source: ["true", "false"]
   
   dynamic_grid:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
+    o_dist:
+      u_source: ""
     i_col:
+      type: counter
       u_source: col
-    i_line:
-      u_source: line
   
   dynamic_tree:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
+    o_dist:
+      u_source: ""
     i_tab:
+      type: counter
       u_source: tab
   
   dynamic_graph:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
+    o_dist:
+      u_source: ""
     i_line:
       u_source: line
   
   dynamic:
+    o_dist:
+      u_source: ""
+    i_layout:
+      u_source: layout
     i_source:
       u_source: source
-
-  dynamic_item:
-    i_key:
-      u_source: key
-    btn_add:
-      type: add
-      target: items
+    i_dataer:
+      u_source: A
   
   cut:
+    o_dist:
+      u_source: ""
     i_x:
+      type: string
       u_source: x
     i_y:
+      type: string
       u_source: "y"
     i_width:
+      type: string
       u_source: width
     i_height:
+      type: string
       u_source: height
   
   cut_tile:
+    o_dist:
+      u_source: ""
     i_index:
+      type: counter
       u_source: index
     i_pw:
+      type: string
       u_source: pw
     i_ph:
+      type: string
       u_source: ph
 
   cut_object:
+    o_dist:
+      u_source: ""
     i_object:
       u_source: object
 
   scroll_bar:
-    i_window:
-      u_source: window
+    o_dist:
+      u_source: ""
     i_bar:
       u_source: bar
+    i_block:
+      u_source: block
 
   size_flag:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
+    o_dist:
+      u_source: ""
     i_align_x:
+      type: string
       u_source: align_x
     i_align_y:
+      type: string
       u_source: align_y
     i_margin_x:
+      type: string
       u_source: margin_x
     i_margin_y:
+      type: string
       u_source: margin_y
   
   graphics_circle:
+    o_dist:
+      u_source: ""
     i_radius:
       u_source: radius
     i_angle_start:
+      type: string
       u_source: angle_start
     i_angle_end:
+      type: string
       u_source: angle_end
   
   graphics_rect:
-    i_width:
+    o_dist:
+      u_source: ""
+    i_width: 
+      type: string
       u_source: width
     i_height:
+      type: string
       u_source: height
     i_round:
+      type: string
       u_source: round
   
   style:
-    f_:
-      ctx: "$i_arr.forEach((item, i)=>{$f_body});\n"
-      slot: 1
+    o_dist:
+      u_source: ""
     i_color:
       u_source: color
     i_outline_color:
       u_source: outline_color
     i_outline_width:
+      type: counter
       u_source: outline_width
     i_size:
+      type: counter
       u_source: size
-    i_align:
-      u_source: align
+    btn_align:
+      type: items
+      u_source: ["center", "left", "right"]
   
   mask:
+    o_dist:
+      u_source: ""
     i_mask:
       u_source: mask
 
   anchor:
+    o_dist:
+      u_source: ""
     i_x:
+      type: string
       u_source: x
     i_y:
+      type: string
       u_source: "y"
 
   note:
+    o_dist:
+      u_source: ""
     i_name:
+      type: string
       u_source: name
     i_any:
       u_source: any
     
 # 高级配置
 advance:
+
+  bundle:
+    i_bundle:
+      slot: 2
+      u_source: ": :"
   
   color:
     o_value:
@@ -181,37 +239,35 @@ advance:
   number:
     o_count:
       type: string
-      ctx: "$o_count"
   
   array:
-    btn_add:
-      type: add
-      u_source: add
-      target: label
+    o_ref:
+      u_source: ref
+    i_dataer:
+      u_source: U
 
   object:
-    btn_add:
-      type: add
-      u_source: add
-      target: string
+    o_ref:
+      u_source: ref
+    i_dataer:
+      u_source: A
   
   json:
-    i_source:
-      u_source: source
     o_out:
       u_source: out
-  
+    i_string:
+      u_source: string
+    
   copy:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
+    o_out:
+      u_source: out
     i_source:
       u_source: source
-
+   
   sign:
     o_type:
       type: items
-      u_source: ["undefined", "null", "true", "false", "In"]
+      u_source: ["undefined", "null", "true", "false"]
   
   op:
     i_a:
@@ -224,15 +280,21 @@ advance:
       u_source: "b"
   
   tween:
+    i_target:
+      u_source: target
     i_a:
+      type: string
       u_source: a
     i_b:
+      type: string
       u_source: b
-    i_time:
+    i_time: 
+      type: string
       u_source: time
     i_auto:
       u_source: auto
     i_auto_delay:
+      type: string
       u_source: auto_delay
     i_lerp:
       u_source: lerp
@@ -242,6 +304,8 @@ advance:
       u_source: x
     i_y:
       u_source: "y"
+    o_out:
+      u_source: out
   
   # 没有直接配置到节点中的函数可以通过这种方式调用, 通常只能是静态/非实例函数
   fn:
@@ -249,9 +313,10 @@ advance:
       u_source: name
     i_args:
       u_source: args
-  
-  
-
+    i_return:
+      u_source: return
+    o_any:
+      u_source: any
 
 base:
 
@@ -259,18 +324,24 @@ base:
     i_output:
       u_source: output
     i_global:
-      u_source: global_ref
-    i_hot_refresh:
-      u_source: hot_refresh
+      u_source: global
+    i_hot:
+      u_source: hot
+    i_ip:
+      u_source: _ip
 
-  __ENTRY:
-    f_:
-      slot: 1
+  add_child:
+    o_ref:
+      u_source: ""
+    i_child:
+      u_source: child
+    i_index:
+      type: string
+      u_source: index
 
   window:
-    f_:
-      ctx: "if($i_con){$f_true}else{$f_false};\n"
-      slot: 1
+    o_ref:
+      u_source: ""
     i_x:
       u_source: x
     i_y:
@@ -287,9 +358,8 @@ base:
       u_source: features
   
   sprite:
-    f_:
-      ctx: "for(let item in $i_object){$f_body};\n"
-      slot: 1
+    o_ref:
+      u_source: ""
     i_x:
       u_source: x
     i_y:
@@ -308,6 +378,8 @@ base:
       u_source: features
 
   graphics:
+    o_ref:
+      u_source: ""
     i_x:
       u_source: x
     i_y:
@@ -320,9 +392,8 @@ base:
       u_source: features
       
   text:
-    f_:
-      ctx: "$i_arr.forEach((item, i)=>{$f_body});\n"
-      slot: 1
+    o_ref:
+      u_source: ""
     i_x:
       u_source: x
     i_y:

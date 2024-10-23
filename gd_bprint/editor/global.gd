@@ -1,19 +1,20 @@
 extends Node
-
-export(Array, String) var envs:Array
-export(String) var path:String
-
-
-var search:Tree
+signal env_ready
 var contextDic: Dictionary = Dictionary()
-var basic: Dictionary = Dictionary()
-onready var cfile:File = File.new()
-onready var cfile_ok:int = cfile.open("res://env/pixijs/main.yaml", File.READ)
+var basic:Dictionary = Dictionary()
+var cfile:File = File.new()
+var cfile_ok
 
-
+var yaml = preload("res://addons/godot-yaml/gdyaml.gdns").new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print_debug(envs)
+	pass # Replace with function body.
+
+
+func _readyEnv(path:String, envs:Array):
+	var mainyaml:String = "res://env/{path}/main.yaml".format({"path":path})
+	cfile_ok = cfile.open(mainyaml, File.READ)
+	# print_debug(envs)
 	_prepareCoreCtx()
 	# var partern = r"window\[`tdoc-\$\{performance\.now()\}`\]"
 	var tar:RegEx = RegEx.new()
@@ -43,14 +44,13 @@ func _ready():
 		file.close()
 		pass
 	# print_debug(contextDic)
-	
+	emit_signal("env_ready")
 	pass # Replace with function body.
 
 # ports type get_value
 func _get_value(node:Node):
 	var custom = node.get_meta("custom_editor_meta")
 	# if(custom.match("#flow")):
-		
 		
 
 # getInterface from ts
@@ -105,64 +105,6 @@ func _getInterface(dic:Dictionary, targets:Array = []) -> Dictionary:
 			
 	return infs
 
-# func _makeGraphNode(obj:Dictionary) -> GraphNode:
-# 	var node:GraphNode = GraphNode.new()
-# 	var sep:HSeparator = HSeparator.new()
-# 	node.title = obj.parent + '\n.' + obj.name
-# 	var goon:Label = Label.new()
-# 	goon.text = " "
-# 	goon.align = Label.ALIGN_CENTER
-# 	node.add_child(goon)
-# 	node.add_child(sep)
-# 	goon.set_meta("type", "flow")
-# 	# param
-# 	for p in obj.params:
-# 		var p0:Label = Label.new()
-# 		p0.text = p.name
-# 		p0.align = Label.ALIGN_LEFT
-# 		p0.set_meta("type", "param")
-# 		node.add_child(p0)
-# 		node.add_child(sep.duplicate())
-# 		pass
-# 	# return 
-# 	var out:Label = Label.new()
-# 	out.text = obj.output_info.type
-# 	out.align = Label.ALIGN_RIGHT
-# 	node.add_child(out)
-# 	out.set_meta("type", "return")
-# 	var children:Array = node.get_children()
-# 	for item in children:
-# 		if(!item.has_meta("type")): continue
-# 		var tt = item.get_meta("type")
-# 		var i:int = item.get_index()
-# 		match tt:
-# 			"flow":
-# 				node.set_slot(i, true, 1, Color(0x9ce9ef), true, 1, Color(0x9ce9ef))
-# 			"return":
-# 				node.set_slot(i, false, 0, Color(0x9ce9ef), true, 0, Color(0x9ce9ef))
-# 			"param":
-# 				node.set_slot(i, true, 0, Color(0x9ce9ef), false, 0, Color(0x9ce9ef))
-# 		pass
-	
-# 	return node
-
-# func _makeGraphNode(obj:Dictionary, name:String="test") -> GraphNode:
-# 	var node:GraphNode = GraphNode.new()
-# 	var sep:HSeparator = HSeparator.new()
-# 	node.title = name
-	
-
-	
-# 	return node
-
-# func merge_basic(re:RegEx, ctx:Dictionary, default_ctx:Dictionary):
-# 	for key in ctx:
-# 		if(re.search(key)):
-# 			continue
-# 		var item:Dictionary = ctx[key]
-# 		_merge_(item, default_ctx)
-# 		pass
-
 func _merge_item(ctx:Dictionary, default_ctx:Dictionary, re):
 	for key in ctx:
 		if(re.search(key)):
@@ -187,7 +129,7 @@ func _merge_item(ctx:Dictionary, default_ctx:Dictionary, re):
 
 func _prepareCoreCtx():
 	var content:String = cfile.get_as_text()
-	basic = PGL.yaml.parse(content).result
+	basic = yaml.parse(content).result
 	# print_debug(basic)
 	var default_ctx = basic.__default
 	var re:RegEx = RegEx.new()
@@ -200,3 +142,4 @@ func _prepareCoreCtx():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+	
